@@ -1,0 +1,76 @@
+<div class="d-flex flex-column">
+  <div class="container-fluid">
+    <!-- Vista de calendario -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+    <script src="./calendar.js"></script>
+    <script>
+      $(document).ready(function (e) {
+        calendar = new CalendarYvv("#calendar");
+        calendar.funcPer = function (ev) {
+          console.log(ev)
+        };
+        calendar.diasResal = [4, 15, 26]
+        calendar.createCalendar();
+      });
+
+    </script>
+    <div class="my-3" style="max-width: 800px">
+      <div id="calendar">Aca va el calendario</div>
+    </div>
+
+    <div class="card card-body">
+      <div class="row" style="margin: 0">
+        <a routerLink="add" class="btn btn-success">
+          <span class="text">Agregar</span>
+        </a>
+      </div>
+      <div class="table-responsive col-sm-12">
+        <table class="table dataTable">
+          <thead>
+            <tr role="row">
+              <th>Nombre</th>
+              <th class="d-none d-sm-table-cell">Tipo</th>
+              <th class="d-none d-sm-table-cell">Fecha</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody id="eventsList">
+            <!-- Fila evento-->
+            <tr role="row">
+              <td>Nombre</td>
+              <td class="d-none d-sm-table-cell">Tipo</td>
+              <td class="d-none d-sm-table-cell">Fechas</td>
+              <td>
+                <a class="btn btn-primary" >
+                  <span class="text">Información</span>
+                </a>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarEvento1">
+                  <span class="text">Eliminar</span>
+                </button>
+              </td>
+            </tr>
+            <!-- Modal -->
+            <div class="modal animated--grow-in" id="modalEliminarEvento1" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <h5>¿Eliminar evento?</h5>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

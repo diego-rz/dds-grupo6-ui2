@@ -1,0 +1,58 @@
+<div id="content-wrapper" class="d-flex flex-column">
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+    <div class="card card-body">
+      <div class="row" style="margin: 0">
+        <a routerLink="add" class="btn btn-success">
+          <span class="text">Agregar</span>
+        </a>
+      </div>
+      <div class="table-responsive col-sm-12">
+        <table class="table dataTable">
+          <thead>
+            <tr role="row">
+              <th>Nombre</th>
+              <th class="d-none d-sm-table-cell">Propietario</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody id="guardarropasList">
+            <tr role="row" *ngFor="let closet of closets">
+              <td>{{closet.id}} {{closet.nombre}}</td>
+              <td class="d-none d-sm-table-cell">{{closet.propietario.nombre}} {{closet.propietario.apellido}}</td>
+              <td>
+                <button class="btn btn-primary">
+                  <span class="text">Información</span>
+                </button>
+                <a (click)="viewItems(closet)" class="text"><button class="btn btn-primary">
+                    <span class="text">Prendas</span>
+                  </button></a>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarGuardarropa1">
+                  <span class="text">Eliminar</span>
+                </button>
+              </td>
+              <div #modal class="modal animated--grow-in" id="modalEliminarGuardarropa1" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <h5>¿Eliminar evento?</h5>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete(closet.id)">Eliminar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container-fluid -->
+
+</div>
