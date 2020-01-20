@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div *ngIf="event" class="card card-body">
+    <h3 style="padding: 1%;">{{event.nombre}}</h3>
+    <div class="row">
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-item-center">
+              <div class="text-primary col mr-2">
+                <ul class="list-unstyled" style="margin: 0">
+                  <li>{{event.ciudad}}</li>
+                  <li>otro dato</li>
+                </ul>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-city fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-item-center">
+              <div class="text-success col mr-2">
+                <ul class="list-unstyled" style="margin: 0">
+                  <li>{{event.fecha}}</li>
+                  <li>otro dato</li>
+                </ul>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-calendar fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-item-center">
+              <div class="text-warning col mr-2">
+                <ul class="list-unstyled" style="margin: 0">
+                  <li>{{event.temperatura}}</li>
+                  <li>otro dato</li>
+                </ul>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-sun fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <h3 style="padding: 1%;">Sugerencias de atuendos</h3>
+
+    <div class="table-responsive col-sm-12">
+      <table class="table dataTable">
+        <thead>
+          <tr role="row">
+            <th>Nombre</th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr role="row" *ngFor="let suggest of event.posiblesAtuendos">
+            <td>{{suggest.nombre}}</td>
+            <td>
+              <a class="btn btn-secondary" >
+                <span class="text">Ver</span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-body">
+      <h3 style="padding: 1%;">Notificarme via:</h3>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+        <label class="custom-control-label" for="customSwitch1">Mensaje de texto</label>
+      </div>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitch2">
+        <label class="custom-control-label" for="customSwitch2">Correo electrónico</label>
+      </div>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" disabled id="customSwitch2">
+        <label class="custom-control-label" for="customSwitch2">Slack</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+

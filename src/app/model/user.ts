@@ -1,6 +1,6 @@
 import { IdName } from './idName';
 
-export class Owner extends IdName {
+export class User extends IdName {
   apellido: string;
   username: string;
   password: string;

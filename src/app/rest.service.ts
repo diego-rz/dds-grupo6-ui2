@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Closet } from './model/closet';
 import { Item } from './model/item';
+import { Event } from "./model/event";
 
 class LoginResponse {
   token: string
@@ -56,17 +57,17 @@ export class RestService {
     return of();
     // return this.httpRequest('DELETE', "guardarropas/"+guardarropaId);
   }
-  /*
 
   // EVENTOS
-  apiGetEvents() {
-    return httpRequest('GET', "eventos", null, null);
+  getEvents(): Observable<Event[]> {
+    return this.httpRequest('GET', "eventos");
   }
+  getEvent(eventId: number): Observable<Event> {
+    return this.httpRequest('GET', "eventos/"+eventId);
+  }
+  /*
   apiAddEvent(event) {
     return httpRequest('POST', "eventos", null, event);
-  }
-  apiGetEvent(eventId) {
-    return httpRequest('GET', "eventos/"+eventId, null, null);
   }
   apiModEvent(eventFull) {
     return httpRequest('PUT', "eventos/"+eventFull.id, null, eventFull);

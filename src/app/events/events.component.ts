@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CalendarYvv } from './CalendarYvv';
+import { RestService } from '../rest.service';
+import { Event } from "../model/event";
 
 @Component({
   selector: 'app-events',
@@ -7,8 +9,11 @@ import { CalendarYvv } from './CalendarYvv';
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements AfterViewInit {
+  events: Event[];
 
-  constructor() { }
+  constructor(
+    private rest: RestService
+  ) { }
 
   ngAfterViewInit() {
     const calendar = new CalendarYvv('#calendar');
@@ -17,6 +22,10 @@ export class EventsComponent implements AfterViewInit {
     };
     calendar.diasResal = [4,15,26]
     calendar.createCalendar();
+
+    this.rest.getEvents().subscribe(events => this.events = events);
+
+
   }
 
 }

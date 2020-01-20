@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Closet } from '../model/closet';
-import { Owner } from '../model/owner';
+import { User } from '../model/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ export class AddClosetComponent implements OnInit {
   }
 
   add(closetName: string): void {
-    let owner: Owner = { // falta api para obtener usuario
+    let owner: User = { // falta api para obtener usuario
       id: 23,
       nombre: "Juan",
       apellido: "Perez",

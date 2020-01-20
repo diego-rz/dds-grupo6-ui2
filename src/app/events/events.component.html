@@ -41,12 +41,12 @@
           </thead>
           <tbody id="eventsList">
             <!-- Fila evento-->
-            <tr role="row">
-              <td>Nombre</td>
-              <td class="d-none d-sm-table-cell">Tipo</td>
-              <td class="d-none d-sm-table-cell">Fechas</td>
+            <tr *ngFor="let event of events" role="row">
+              <td>{{event.nombre}}</td>
+              <td class="d-none d-sm-table-cell">{{event.ciudad}}</td>
+              <td class="d-none d-sm-table-cell">{{event.temperatura}}</td>
               <td>
-                <a class="btn btn-primary" >
+                <a class="btn btn-primary" routerLink="{{event.id}}" >
                   <span class="text">Información</span>
                 </a>
                 <button class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarEvento1">

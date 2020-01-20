@@ -1,8 +1,8 @@
 import { IdName } from './idName';
 import { Item } from './item';
-import { Owner } from './owner';
+import { User } from './user';
 
 export class Closet extends IdName{
   prendas: Item[];
-  propietario: Owner;
+  propietario: User;
 }
