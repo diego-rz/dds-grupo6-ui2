@@ -15,6 +15,7 @@ const routes = [
   {path: '', component: HomeComponent},
   {path: 'events', component: EventsComponent},
   {path: 'events/:id', component: EventComponent},
+  {path: 'events/:id/items', component: ItemsComponent},
   {path: 'events/add', component: AddEventComponent},
   {path: 'items', component: ItemsComponent},
   {path: 'items/add', component: AddItemComponent},

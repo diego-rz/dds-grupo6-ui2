@@ -8,7 +8,7 @@
             <div class="row no-gutters align-item-center">
               <div class="text-primary col mr-2">
                 <ul class="list-unstyled" style="margin: 0">
-                  <li>{{event.ciudad}}</li>
+                  <li>{{event.ciudad | cities}}</li>
                   <li>otro dato</li>
                 </ul>
               </div>
@@ -42,7 +42,7 @@
             <div class="row no-gutters align-item-center">
               <div class="text-warning col mr-2">
                 <ul class="list-unstyled" style="margin: 0">
-                  <li>{{event.temperatura}}</li>
+                  <li>{{event.temperatura}} °C</li>
                   <li>otro dato</li>
                 </ul>
               </div>
@@ -71,7 +71,7 @@
           <tr role="row" *ngFor="let suggest of event.posiblesAtuendos">
             <td>{{suggest.nombre}}</td>
             <td>
-              <a class="btn btn-secondary" >
+              <a class="btn btn-secondary" (click)="viewItems(suggest)">
                 <span class="text">Ver</span>
               </a>
             </td>

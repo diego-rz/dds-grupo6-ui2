@@ -9,6 +9,12 @@ export class Event extends IdName{
   notificadorEvento: IdName;
   temperatura: number;
   usuario: User;
+
+  static citiesMap: Map<number, string> = new Map<number, string>([
+    [10, 'Buenos Aires'],
+    [14, 'Ezeiza']
+  ]);
+
 }
 
 export class SimpleEvent extends Event {

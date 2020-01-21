@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Item } from '../model/item';
-import { Router } from '@angular/router';
 import { Closet } from '../model/closet';
+import { Dressing } from '../model/dressing';
 
 @Component({
   selector: 'app-items',
@@ -18,8 +18,20 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   ) { }
 
     ngOnInit() {
-      if(history.state.data) {
-        this.items = (history.state.data.closet as Closet).prendas;
+      if (history.state.data) {
+        if (history.state.data.closet) {
+          this.items = (history.state.data.closet as Closet).prendas;
+        } else if (history.state.data.dressing) {
+          const dressing = (history.state.data.dressing as Dressing);
+          this.items = [
+            dressing.prendaSuperior,
+            dressing.prendaInferior,
+            dressing.prendaCalzado,
+            dressing.prendaAccesorio,
+            dressing.abrigoLigero,
+            dressing.abrigoPesado,
+          ].filter(item => item);
+        }
       }
     }
 

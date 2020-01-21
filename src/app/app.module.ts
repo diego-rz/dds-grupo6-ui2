@@ -15,6 +15,7 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { LoginComponent } from './login/login.component';
 import { EventComponent } from './event/event.component';
+import { CitiesPipe } from './cities.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EventComponent } from './event/event.component';
     AddEventComponent,
     AddItemComponent,
     LoginComponent,
-    EventComponent
+    EventComponent,
+    CitiesPipe
   ],
   imports: [
     BrowserModule,
