@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Closet } from './model/closet';
-import { Item } from './model/item';
-import { Event } from "./model/event";
+import { Item, ItemDto } from './model/item';
+import { Event, EventDto } from './model/event';
+import { Dressing } from './model/dressing';
 
 class LoginResponse {
   token: string
@@ -47,51 +48,51 @@ export class RestService {
 
   // GUARDARROPAS
   getClosets(): Observable<Closet[]> {
-    return this.httpRequest<Closet[]>('GET', "guardarropas");
+    return this.httpRequest<Closet[]>('GET', 'guardarropas');
   }
-  addCloset(guardarropa: Closet) {
-    return of();
-    // return this.httpRequest('POST', "guardarropas", null, guardarropa);
+  addCloset(closet: Closet) {
+    // return of();
+    return this.httpRequest('POST', 'guardarropas', null, closet);
   }
-  deleteCloset(guardarropaId) {
-    return of();
-    // return this.httpRequest('DELETE', "guardarropas/"+guardarropaId);
+  deleteCloset(closetId) {
+    // return of();
+    return this.httpRequest('DELETE', 'guardarropas/'+closetId);
   }
 
   // EVENTOS
   getEvents(): Observable<Event[]> {
-    return this.httpRequest('GET', "eventos");
+    return this.httpRequest('GET', 'eventos');
   }
   getEvent(eventId: number): Observable<Event> {
-    return this.httpRequest('GET', "eventos/"+eventId);
+    return this.httpRequest('GET', 'eventos/'+eventId);
   }
-  /*
-  apiAddEvent(event) {
-    return httpRequest('POST', "eventos", null, event);
+  addEvent(eventDto: EventDto) {
+    return this.httpRequest<EventDto>('POST', 'eventos', null, eventDto);
   }
-  apiModEvent(eventFull) {
-    return httpRequest('PUT', "eventos/"+eventFull.id, null, eventFull);
+  modEvent(event: Event) {
+    return this.httpRequest<Event>('PUT', 'eventos', null, event);
   }
-  apiDeleteEvent(eventId) {
-    httpRequest('DELETE', "eventos/"+eventId, null, null);
+  deleteEvent(eventId: number) {
+    this.httpRequest('DELETE', 'eventos/'+eventId);
   }
-  apiSetAtuendo(eventId, atuendo) {
-    return httpRequest('POST', "eventos/"+eventId+"/atuendos", null, atuendo);
+  setEventDressing(eventId: number, atuendo: Dressing) {
+    return this.httpRequest('POST', 'eventos/'+eventId+'/atuendos', null, atuendo);
   }
-*/
+
   //PRENDAS
   getItems() {
-    return this.httpRequest<Item[]>('GET', "prendas");
+    return this.httpRequest<Item[]>('GET', 'prendas');
   }
-  /*
-  apiAddPrenda(prenda) {
-    return httpRequest('POST', "prendas", null, prenda);
+  getItem(itemId: number) {
+    return this.httpRequest<Item>('GET', 'prendas/'+itemId);
   }
-  apiModPrenda(prenda) {
-    return httpRequest('PUT', "prendas/"+prenda.id, null, prenda);
+  addItem(item: ItemDto) {
+    return this.httpRequest('POST', 'prendas', null, item);
   }
-  apiDeletePrenda(prendaId) {
-    httpRequest('DELETE', "prendas/"+prendaId, null, null);
+  modItem(item: Item) {
+    return this.httpRequest('PUT', 'prendas', null, item);
   }
-*/
+  deletePrenda(itemId: number) {
+    this.httpRequest('DELETE', 'prendas/'+itemId);
+  }
 }

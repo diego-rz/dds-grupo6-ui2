@@ -24,8 +24,6 @@ export class EventsComponent implements AfterViewInit {
     calendar.createCalendar();
 
     this.rest.getEvents().subscribe(events => this.events = events);
-
-
   }
 
 }

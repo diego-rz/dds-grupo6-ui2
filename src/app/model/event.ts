@@ -17,6 +17,14 @@ export class Event extends IdName{
 
 }
 
+export class EventDto {
+  nombre: string;
+  tipo: string;
+  ciudad: number;
+  fecha: string;
+  hora: string;
+}
+
 export class SimpleEvent extends Event {
   fecha: Date
 }
