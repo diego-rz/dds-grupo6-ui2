@@ -8,41 +8,89 @@
           <input type="text" class="form-control" name="name" placeholder="ej. Cumpleaños de Jaime">
           <small class="form-text text-muted">Este será el nombre</small>
           Tipo
-          <select class="form-control" name="type">
+          <select class="form-control" name="type" [(ngModel)]="event.tipo">
             <option value="eventosimple">Único</option>
             <option value="eventoperiodico">Periódico</option>
           </select>
-          Fecha
-          <input type="datetime" class="form-control" name="date">
+          <div *ngIf="event.tipo === 'eventosimple'">
+            <h5>Fecha</h5>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="day">Dia</label>
+                <input type="number" max="31" min="1" class="form-control" name="day" [(ngModel)]="date.day">
+              </div>
+              <div class="col-md-3">
+                <label for="month">Mes</label>
+                <select class="custom-select" name="month" [(ngModel)]="date.month">
+                  <option value="1">Enero</option>
+                  <option value="2">Febrero</option>
+                  <option value="3">Marzo</option>
+                  <option value="4">Abril</option>
+                  <option value="5">Mayo</option>
+                  <option value="6">Junio</option>
+                  <option value="7">Julio</option>
+                  <option value="8">Agosto</option>
+                  <option value="9">Septiembre</option>
+                  <option value="10">Octubre</option>
+                  <option value="11">Noviembre</option>
+                  <option value="12">Diciembre</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label for="year">Año</label>
+                <input type="number" max="2099" min="2000" class="form-control" name="year" [(ngModel)]="date.year">
+              </div>
+              <div class="col-md-1">
+                <label for="hour">Hora</label>
+                <input type="text" maxLength="2" class="form-control" name="hour" [(ngModel)]="date.hour">
+              </div>
+              <div class="col-md-1">
+                <label for="minute">Minuto</label>
+                <input type="text" maxLength="2" class="form-control" name="minute" [(ngModel)]="date.minute">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="event.tipo === 'eventoperiodico'">
+            <h5>Frecuencia</h5>
+            <div class="col-md-3">
+              <select class="custom-select" name="frequency">
+                <option value="1">Diaria</option>
+                <option value="2">Semanal</option>
+                <option value="3">Mensual</option>
+                <option value="4">Anual</option>
+              </select>
+            </div>
+          </div>
+
         </div>
         <h4>Dirección</h4>
         <div class="form-group">
           <div class="row">
             <div class="col-md-6">
               <label for="address">Calle</label>
-              <input type="text" class="form-control" name="address">
+              <input type="text" class="form-control" name="address" [(ngModel)]="address.street">
             </div>
             <div class="col-md-2">
               <label for="addressNumber">Número</label>
-              <input type="text" class="form-control" name="addressNumber">
+              <input type="text" class="form-control" name="addressNumber" [(ngModel)]="address.number">
             </div>
             <div class="col-md-2">
               <label for="addressFloor">Piso</label>
-              <input type="text" class="form-control" name="addressFloor">
+              <input type="text" class="form-control" name="addressFloor" [(ngModel)]="address.floor">
             </div>
             <div class="col-md-2">
               <label for="addressDept">Departamento</label>
-              <input type="text" class="form-control" name="addressDept">
+              <input type="text" class="form-control" name="addressDept" [(ngModel)]="address.department">
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <label for="addressLocality">Localidad</label>
-              <input type="text" class="form-control" name="addressLocality">
+              <input type="text" class="form-control" name="addressLocality" [(ngModel)]="address.locality">
             </div>
             <div class="col-md-6">
               <label for="addressProvince">Provincia</label>
-              <input type="text" class="form-control" name="addressProvince">
+              <input type="text" class="form-control" name="addressProvince" [(ngModel)]="address.province">
             </div>
           </div>
         </div>
