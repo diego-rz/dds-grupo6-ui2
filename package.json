@@ -3,11 +3,17 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "lite": "lite-server",
+    "postinstall": "ng build --prod"
+  },
+  "engines": {
+    "node": "10.14.2",
+      "npm": "6.4.1"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +27,10 @@
     "@angular/router": "~8.2.14",
     "@fortawesome/fontawesome-free": "^5.12.0",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
+    "path": "^0.12.7",
     "popper.js": "^1.16.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

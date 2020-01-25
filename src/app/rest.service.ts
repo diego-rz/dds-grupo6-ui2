@@ -15,7 +15,7 @@ class LoginResponse {
   providedIn: 'root'
 })
 export class RestService {
-  host = 'http://localhost:5000/';
+  host = 'https://dds-2019-db.herokuapp.com/';
   token: string = '';
   constructor(
     private http: HttpClient,
