@@ -16,15 +16,15 @@ class LoginResponse {
   providedIn: 'root'
 })
 export class RestService {
-  // host = 'https://dds-2019-db.herokuapp.com/';
-  host = 'http://localhost:5000/';
+  host = 'https://dds-2019-db.herokuapp.com/';
+  // host = 'http://localhost:5000/';
   token: string = '';
   constructor(
     private http: HttpClient,
     private router: Router
   ) { }
 
-  login(username: string, password: string): void {
+  login(username: string, password: string): boolean {
     this.http
       .post<LoginResponse>(this.host + 'login', { username: username, password: password })
       .subscribe(
@@ -32,6 +32,7 @@ export class RestService {
         error => this.token = error,
         () => this.router.navigateByUrl('')
       );
+      return this.token && this.token.length > 0;
   }
 
   httpRequest<T>(method: string, path: string, queryParms?: QueryParam[], bodyParams?: T): Observable<T> {

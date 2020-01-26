@@ -3,16 +3,18 @@
   <h1>Que me Pongo?</h1>
   <form action="">
 
-      <label for="username">Username</label>
-      <input [(ngModel)]="username" type="text" placeholder="Enter Username" [ngModelOptions]="{standalone: true}">
+    <label for="username">Username</label>
+    <input [(ngModel)]="username" type="text" placeholder="Enter Username" [ngModelOptions]="{standalone: true}">
 
-      <label for="password">Password</label>
-      <input [(ngModel)]="password" type="password" placeholder="Enter Password" [ngModelOptions]="{standalone: true}">
+    <label for="password">Password</label>
+    <input [(ngModel)]="password" type="password" placeholder="Enter Password" [ngModelOptions]="{standalone: true}">
 
-      <input (click)="login()" type="submit" value="Log In">
-      <a href="index.html"> Lost your Password?</a>
-      <a href="login_wizard.html">Don't have an account?</a>
+    <input (click)="login()" type="submit" value="Log In">
+      <a href="#"> Lost your Password?</a>
+      <a href="#">Don't have an account?</a>
 
-  </form>
-  token: {{token}}
+    </form>
+    <div *ngIf="!loginSuccess" class="alert alert-danger" role="alert">
+      Credenciales inválidas
+    </div>
 </div>

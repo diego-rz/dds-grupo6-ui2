@@ -58,4 +58,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   breadcrumbStep(index: number): string {
     return Array.from(this.url).slice(0,index+1).join('/');
   }
+
+  logout() {
+    this.restService.token = null;
+    this.router.navigateByUrl('/login');
+  }
 }

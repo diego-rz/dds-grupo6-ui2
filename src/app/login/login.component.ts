@@ -9,7 +9,7 @@ import { RestService } from '../rest.service';
 export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
-  token = '';
+  loginSuccess = true;
   constructor(
     private restService: RestService
   ) { }
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.restService.login(this.username, this.password);
+    this.loginSuccess = this.restService.login(this.username, this.password)
   }
 
 }
