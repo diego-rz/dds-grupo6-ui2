@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   url: string[] = [];
   token: string = '';
+  loginPage: boolean;
 
   constructor(
     private location: Location,
@@ -29,8 +30,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
+    this.location.onUrlChange((url: string) => {
+      this.loginPage = url === '/login';
+    })
     if(!this.restService.token) {
-      this.router.navigateByUrl('login');
+      this.router.navigateByUrl('/login');
     }
     this.loadMap();
     this.location.onUrlChange(() => {
