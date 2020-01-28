@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventDto } from '../model/event';
+import { RestService } from '../rest.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-event',
@@ -33,9 +35,20 @@ export class AddEventComponent implements OnInit {
     hora: '',
   }
 
-  constructor() { }
+  constructor(
+    private rest: RestService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  send() {
+    this.event.ciudad = +this.address.locality;
+    const month = this.date.month > 9 ? this.date.month.toString() : '0' + this.date.month;
+    this.event.fecha = `${this.date.year}-${month}-${this.date.day}`;
+    this.event.hora = `${this.date.hour}:${this.date.minute}`;
+    this.rest.addEvent(this.event).subscribe(() => this.router.navigateByUrl('/events'));
   }
 
 }
