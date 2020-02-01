@@ -53,6 +53,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.translateMap.set('add', 'Nuevo');
     this.translateMap.set('items', 'Prendas');
     this.translateMap.set('login', 'Ingresar');
+    this.translateMap.set('ratings', 'Calificaciones');
   }
 
   breadcrumbStep(index: number): string {

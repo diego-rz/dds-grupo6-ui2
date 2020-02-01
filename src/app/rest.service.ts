@@ -24,15 +24,13 @@ export class RestService {
     private router: Router
   ) { }
 
-  login(username: string, password: string): boolean {
-    this.http
-      .post<LoginResponse>(this.host + 'login', { username: username, password: password })
-      .subscribe(
-        response => this.token = response.token,
-        error => this.token = error,
-        () => this.router.navigateByUrl('')
-      );
-      return this.token && this.token.length > 0;
+  login(username: string, password: string): Observable<LoginResponse> {
+    return this.http
+      .post<LoginResponse>(this.host + 'login', { username: username, password: password });
+  }
+
+  setToken(token: string): void {
+    this.token = token;
   }
 
   httpRequest<T>(method: string, path: string, queryParms?: QueryParam[], bodyParams?: T): Observable<T> {

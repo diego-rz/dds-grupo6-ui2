@@ -9,12 +9,20 @@
     <label for="password">Password</label>
     <input [(ngModel)]="password" type="password" placeholder="Enter Password" [ngModelOptions]="{standalone: true}">
 
-    <input (click)="login()" type="submit" value="Log In">
+    <button class="btn btn-danger btn-lg btn-block rounded-pill" (click)="login()" type="submit">
+      <span *ngIf="!loading">Log in</span>
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </button>
       <a href="#"> Lost your Password?</a>
       <a href="#">Don't have an account?</a>
 
     </form>
     <div *ngIf="!loginSuccess" class="alert alert-danger" role="alert">
-      Credenciales inválidas
+      <span *ngIf="invalidCredentials">
+        Credenciales inválidas
+      </span>
+      <span *ngIf="!invalidCredentials">
+        Ha ocurrido un error, por favor vuelva a intentar
+      </span>
     </div>
 </div>
