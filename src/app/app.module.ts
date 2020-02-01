@@ -16,6 +16,8 @@ import { AddItemComponent } from './add-item/add-item.component';
 import { LoginComponent } from './login/login.component';
 import { EventComponent } from './event/event.component';
 import { CitiesPipe } from './cities.pipe';
+import { RatingsComponent } from './ratings/ratings.component';
+import { RateModalComponent } from './rate-modal/rate-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { CitiesPipe } from './cities.pipe';
     AddItemComponent,
     LoginComponent,
     EventComponent,
-    CitiesPipe
+    CitiesPipe,
+    RatingsComponent,
+    RateModalComponent
   ],
   imports: [
     BrowserModule,

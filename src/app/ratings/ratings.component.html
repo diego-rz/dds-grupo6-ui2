@@ -1,0 +1,36 @@
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+    <div class="card card-body">
+      <div class="table-responsive col-sm-12">
+        <table class="table dataTable">
+          <thead>
+            <tr role="row">
+              <th>Nombre</th>
+              <th>Evento</th>
+              <th>Calificación</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Inicio de registro -->
+            <tr role="row" *ngFor="let dressing of dressings">
+              <td>{{dressing.nombre}}</td>
+              <td>{{dressing.evento.nombre}}</td>
+              <td>{{dressing.rate}}</td>
+              <td>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalRating">
+                  <span class="text">Modificar</span>
+                </button>
+              </td>
+            </tr>
+            <app-rate-modal></app-rate-modal>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</div>
+<!-- End of Content Wrapper -->

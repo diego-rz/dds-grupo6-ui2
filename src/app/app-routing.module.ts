@@ -9,6 +9,7 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { LoginComponent } from './login/login.component';
 import { EventComponent } from './event/event.component';
+import { RatingsComponent } from './ratings/ratings.component';
 
 const routes = [
   // {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -22,6 +23,7 @@ const routes = [
   {path: 'closets', component: ClosetsComponent},
   {path: 'closets/items', component: ItemsComponent},
   {path: 'closets/add', component: AddClosetComponent},
+  {path: 'ratings', component: RatingsComponent},
   {path: 'login', component: LoginComponent}
 ]
 

@@ -74,8 +74,12 @@
               <a class="btn btn-secondary" (click)="viewItems(suggest)">
                 <span class="text">Ver</span>
               </a>
+              <a class="btn btn-secondary" data-toggle="modal" data-target="#modalRating">
+                <span class="text">Calificar</span>
+              </a>
             </td>
           </tr>
+          <app-rate-modal></app-rate-modal>
         </tbody>
       </table>
     </div>
@@ -98,4 +102,3 @@
 
   </div>
 </div>
-
