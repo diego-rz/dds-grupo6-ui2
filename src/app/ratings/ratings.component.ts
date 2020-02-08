@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-ratings',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ratings.component.css']
 })
 export class RatingsComponent implements OnInit {
+  updated: number;
 
   dressings = [
     {
+      id: 1,
       nombre: 'Atuendo formal 1',
       evento: {
         nombre: 'Casamiento de pepe'
@@ -16,6 +19,7 @@ export class RatingsComponent implements OnInit {
       rate: 4
     },
     {
+      id: 2,
       nombre: 'Atuendo casual 4',
       evento: {
         nombre: 'Cumpleaños de pepe'
@@ -28,6 +32,10 @@ export class RatingsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setUpdated(dressingId: number) {
+    this.updated = dressingId;
   }
 
 }

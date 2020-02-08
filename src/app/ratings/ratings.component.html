@@ -20,12 +20,12 @@
               <td>{{dressing.evento.nombre}}</td>
               <td>{{dressing.rate}}</td>
               <td>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#modalRating">
+                <button class="btn btn-primary" data-toggle="modal" (click)="setUpdated(dressing.id)" data-target="#modalRating">
                   <span class="text">Modificar</span>
                 </button>
               </td>
             </tr>
-            <app-rate-modal></app-rate-modal>
+            <app-rate-modal [type]="'DRESSING'" [id]="updated"></app-rate-modal>
           </tbody>
         </table>
       </div>

@@ -7,6 +7,7 @@ import { Item, ItemDto } from './model/item';
 import { Event, EventDto } from './model/event';
 import { Dressing } from './model/dressing';
 import { tap, catchError } from "rxjs/operators";
+import { RatingDto } from './model/rating';
 
 class LoginResponse {
   token: string
@@ -16,8 +17,8 @@ class LoginResponse {
   providedIn: 'root'
 })
 export class RestService {
-  host = 'https://dds-2019-db.herokuapp.com/';
-  // host = 'http://localhost:5000/';
+  // host = 'https://dds-2019-db.herokuapp.com/';
+  host = 'http://localhost:5000/';
   token: string = '';
   constructor(
     private http: HttpClient,
@@ -122,6 +123,29 @@ export class RestService {
   }
   deletePrenda(itemId: number) {
     this.httpRequest('DELETE', 'prendas/' + itemId);
+  }
+
+  //PUNTAJES
+  getItemRatings() {
+    return this.httpRequest('GET', 'puntajes');
+  }
+  getItemRating(ratingId: number) {
+    return this.httpRequest('GET', 'puntajes/' + ratingId);
+  }
+  addItemRating(rating: RatingDto) {
+    return this.httpRequest('POST', 'puntajes', null, rating);
+  }
+  getDressingRatings() {
+    // return this.httpRequest('GET', 'puntajes');
+    return of([]);
+  }
+  getDressingRating(ratingId: number) {
+    // return this.httpRequest('GET', 'puntajes/' + ratingId);
+    return of({});
+  }
+  addDressingRating(rating: RatingDto) {
+    // return this.httpRequest('POST', 'puntajes', null, rating);
+    return of({});
   }
 
   /**

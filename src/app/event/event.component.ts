@@ -13,6 +13,7 @@ import { Item } from '../model/item';
 })
 export class EventComponent implements OnInit {
   @Input() event: Event;
+  dressingId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,9 @@ export class EventComponent implements OnInit {
     this.router.navigateByUrl(`events/${dressing.id}/items`, {state: {data: {dressing}}});
   }
 
+  setDressingId(dressingId: number) {
+    this.dressingId = dressingId;
+  }
 
   private getAtuendo(): Dressing {
     const tipoRemera: ItemType = {
