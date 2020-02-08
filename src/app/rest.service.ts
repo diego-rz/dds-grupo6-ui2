@@ -17,8 +17,8 @@ class LoginResponse {
   providedIn: 'root'
 })
 export class RestService {
-  // host = 'https://dds-2019-db.herokuapp.com/';
-  host = 'http://localhost:5000/';
+  host = 'https://dds-2019-db.herokuapp.com/';
+  // host = 'http://localhost:5000/';
   token: string = '';
   constructor(
     private http: HttpClient,
@@ -104,8 +104,9 @@ export class RestService {
   deleteEvent(eventId: number) {
     return this.httpRequest('DELETE', 'eventos/' + eventId);
   }
-  setEventDressing(eventId: number, atuendo: Dressing) {
-    return this.httpRequest('POST', 'eventos/' + eventId + '/atuendos', null, atuendo);
+  setEventDressing(eventId: number, atuendoId: number) {
+    const queryParam = {key: 'atuendoId', value: atuendoId.toString()} as QueryParam;
+    return this.httpRequest('POST', 'eventos/' + eventId + '/atuendos', [queryParam]);
   }
 
   //PRENDAS

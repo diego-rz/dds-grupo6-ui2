@@ -26,6 +26,7 @@ export class EventComponent implements OnInit {
     this.rest.getEvent(eventId).subscribe(event => {
       this.event = event;
       event.posiblesAtuendos = [this.getAtuendo()];
+      event.atuendoElegido = this.getAtuendo();
     });
   }
 
@@ -35,6 +36,18 @@ export class EventComponent implements OnInit {
 
   setDressingId(dressingId: number) {
     this.dressingId = dressingId;
+  }
+
+  setEventDressing(dressingId: number) {
+    this.rest.setEventDressing(this.event.id, dressingId).subscribe(
+      () => {
+        this.rest.getEvent(this.event.id).subscribe(event => {
+          this.event = event;
+          event.posiblesAtuendos = [this.getAtuendo()];
+          event.atuendoElegido = this.getAtuendo();
+        });
+      }
+    )
   }
 
   private getAtuendo(): Dressing {

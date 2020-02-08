@@ -56,6 +56,25 @@
 
     </div>
 
+    <div *ngIf="event.atuendoElegido">
+      <h3>Atuendo elegido</h3>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5>{{event.atuendoElegido.nombre}}</h5>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-primary" (click)="viewItems(event.atuendoElegido)">
+                Ver
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
 
     <h3 style="padding: 1%;">Sugerencias de atuendos</h3>
 
@@ -71,12 +90,15 @@
           <tr role="row" *ngFor="let suggest of event.posiblesAtuendos">
             <td>{{suggest.nombre}}</td>
             <td>
-              <a class="btn btn-secondary" (click)="viewItems(suggest)">
+              <button class="btn btn-primary m-1" (click)="viewItems(suggest)">
                 <span class="text">Ver</span>
-              </a>
-              <a class="btn btn-secondary" data-toggle="modal" (click)="setDressingId(suggest.id)" data-target="#modalRating">
+              </button>
+              <button class="btn btn-success m-1" data-toggle="modal" (click)="setEventDressing(suggest.id)">
+                <span class="text">Elegir</span>
+              </button>
+              <button class="btn btn-info m-1" data-toggle="modal" (click)="setDressingId(suggest.id)" data-target="#modalRating">
                 <span class="text">Calificar</span>
-              </a>
+              </button>
             </td>
           </tr>
           <app-rate-modal [type]="'DRESSING'" [id]="dressingId"></app-rate-modal>
