@@ -79,9 +79,8 @@ export class RestService {
   getClosets(): Observable<Closet[]> {
     return this.httpRequest<Closet[]>('GET', 'guardarropas');
   }
-  addCloset(closet: Closet) {
-    // return of();
-    return this.httpRequest('POST', 'guardarropas', null, closet);
+  addCloset(closetName: string) {
+    return this.httpRequest('POST', 'guardarropas', null, {nombre: closetName});
   }
   deleteCloset(closetId) {
     // return of();

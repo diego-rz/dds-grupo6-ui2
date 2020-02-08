@@ -4,9 +4,12 @@
     <div class="card-body">
       <h4>Nombre</h4>
       <div class="form-group">
-        <input #closetName type="text" class="form-control" placeholder="ej. Formal">
+        <input #closetName type="text" class="form-control" [ngClass]="{'disabled' : closetName.value}" placeholder="ej. Formal">
+        <div *ngIf="nameRequired" class="alert alert-danger" role="alert">
+          El nombre es obligatorio
+        </div>
         <small class="form-text text-muted">Este será el nombre</small>
-        <button class="btn btn-primary" (click)="add(closetName.value)">Guardar</button>
+        <button class="btn btn-primary"  (click)="add(closetName.value)">Guardar</button>
       </div>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class ClosetsComponent implements AfterViewInit {
   closets: Closet[];
+  deleteId: number;
 
   constructor(
     private rest: RestService,
@@ -26,8 +27,19 @@ export class ClosetsComponent implements AfterViewInit {
     this.router.navigateByUrl('closets/items', {state: {data: {closet}}});
   }
 
-  delete(closetId: number): void {
-    this.rest.deleteCloset(closetId).subscribe(() => {}, error => console.log(error), () => this.router.navigateByUrl(''));
+  setDeleteId(closetId: number) {
+    this.deleteId = closetId;
+  }
+
+  delete(): void {
+    this.rest.deleteCloset(this.deleteId).subscribe(
+      () => {},
+      error => console.log(error),
+      () => {
+        this.rest.getClosets().subscribe(closets => {
+          this.closets = closets;
+        });
+      });
   }
 
 }

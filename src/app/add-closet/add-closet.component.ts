@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-closet.component.css']
 })
 export class AddClosetComponent implements OnInit {
+  nameRequired = false;
 
   constructor(
     private rest: RestService,
@@ -20,20 +21,11 @@ export class AddClosetComponent implements OnInit {
   }
 
   add(closetName: string): void {
-    let owner: User = { // falta api para obtener usuario
-      id: 23,
-      nombre: "Juan",
-      apellido: "Perez",
-      username: "jperez",
-      password: "qwer"
-    };
-
-    let closet = new Closet();
-    closet.nombre = closetName;
-    closet.propietario = owner;
-    closet.prendas = [];
-
-    this.rest.addCloset(closet).subscribe(() => {}, error => console.log(error), () => this.router.navigateByUrl('/closets'));
+    if (!closetName || closetName.length == 0) {
+      this.nameRequired = true;
+    } else {
+      this.rest.addCloset(closetName).subscribe(() => {}, error => console.log(error), () => this.router.navigateByUrl('/closets'));
+    }
   }
 
 }

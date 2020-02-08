@@ -29,7 +29,7 @@
                 <a (click)="viewItems(closet)" class="text"><button class="btn btn-primary">
                     <span class="text">Prendas</span>
                   </button></a>
-                <button class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarGuardarropa1">
+                <button class="btn btn-danger" data-toggle="modal" (click)="setDeleteId(closet.id)" data-target="#modalEliminarGuardarropa1">
                   <span class="text">Eliminar</span>
                 </button>
               </td>
@@ -37,11 +37,11 @@
                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                   <div class="modal-content">
                     <div class="modal-body">
-                      <h5>¿Eliminar evento?</h5>
+                      <h5>¿Eliminar evento {{deleteId}}?</h5>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete(closet.id)">Eliminar</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Eliminar</button>
                     </div>
                   </div>
                 </div>
