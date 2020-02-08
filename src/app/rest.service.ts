@@ -101,7 +101,7 @@ export class RestService {
     return this.httpRequest<Event>('PUT', 'eventos', null, event);
   }
   deleteEvent(eventId: number) {
-    this.httpRequest('DELETE', 'eventos/' + eventId);
+    return this.httpRequest('DELETE', 'eventos/' + eventId);
   }
   setEventDressing(eventId: number, atuendo: Dressing) {
     return this.httpRequest('POST', 'eventos/' + eventId + '/atuendos', null, atuendo);

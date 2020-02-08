@@ -30,7 +30,7 @@
                 <a class="btn btn-primary" routerLink="{{event.id}}" >
                   <span class="text">Información</span>
                 </a>
-                <button class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarEvento1">
+                <button class="btn btn-danger" data-toggle="modal" (click)="setDeleteId(event.id)" data-target="#modalEliminarEvento1">
                   <span class="text">Eliminar</span>
                 </button>
               </td>
@@ -40,11 +40,11 @@
               <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
-                    <h5>¿Eliminar evento?</h5>
+                    <h5>¿Eliminar evento {{deleteId}}?</h5>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Eliminar</button>
                   </div>
                 </div>
               </div>

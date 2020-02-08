@@ -10,15 +10,6 @@ import { Router } from '@angular/router';
 })
 export class AddEventComponent implements OnInit {
 
-  address: Address = {
-    street: '',
-    number: 0,
-    floor: 0,
-    department: '',
-    locality: '',
-    province: '',
-  };
-
   date: Date = {
     day: 0,
     month: 0,
@@ -44,7 +35,6 @@ export class AddEventComponent implements OnInit {
   }
 
   send() {
-    this.event.ciudad = +this.address.locality;
     const month = this.date.month > 9 ? this.date.month.toString() : '0' + this.date.month;
     this.event.fecha = `${this.date.year}-${month}-${this.date.day}`;
     this.event.hora = `${this.date.hour}:${this.date.minute}`;
