@@ -3,18 +3,18 @@
   <h1>Que me Pongo?</h1>
   <form action="">
 
-    <label for="username">Username</label>
-    <input [(ngModel)]="username" type="text" placeholder="Enter Username" [ngModelOptions]="{standalone: true}">
+    <label for="username">Nombre de usuario</label>
+    <input [(ngModel)]="username" type="text" [ngModelOptions]="{standalone: true}">
 
-    <label for="password">Password</label>
-    <input [(ngModel)]="password" type="password" placeholder="Enter Password" [ngModelOptions]="{standalone: true}">
+    <label for="password">Contraseña</label>
+    <input [(ngModel)]="password" type="password" [ngModelOptions]="{standalone: true}">
 
     <button class="btn btn-danger btn-lg btn-block rounded-pill" (click)="login()" type="submit">
-      <span *ngIf="!loading">Log in</span>
+      <span *ngIf="!loading">Ingresar</span>
       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </button>
-      <a href="#"> Lost your Password?</a>
-      <a href="#">Don't have an account?</a>
+    <small><a href="#">¿Olvidó su contraseña?</a></small>
+    <small><a href="#">Registrarse</a></small>
 
     </form>
     <div *ngIf="!loginSuccess" class="alert alert-danger" role="alert">
