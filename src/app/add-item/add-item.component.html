@@ -156,8 +156,7 @@
                 </label>
                 <div class="form-holder">
                   <!-- <i class="zmdi zmdi-account-o"></i>-->
-                  <input id="files-upload" type="file" multiple>
-
+                  <input id="files-upload" type="file">
                 </div>
               </div>
               <div class="form-col">
@@ -180,4 +179,11 @@
     <!-- Template created and distributed by Colorlib -->
     <!-- FIN WIZARD -->
   </div>
+  <app-file-uploader></app-file-uploader>
+  <button type="button" class="input-group-text btn btn-outline-primary"
+      (click)="uploadFile()"
+      [disabled]="!hasFile() || isLoading()">
+    <span *ngIf="!isLoading()">Subir</span>
+    <span *ngIf="isLoading()" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  </button>
 </div>

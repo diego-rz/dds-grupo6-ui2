@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemType } from '../model/itemType';
 import { Closet } from '../model/closet';
 import { RestService } from '../rest.service';
 import { ItemDto } from '../model/item';
 import { Router } from '@angular/router';
+import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-add-item',
@@ -11,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent implements OnInit {
+  @ViewChild(FileUploaderComponent, {static: false})
+  private fileUploaderComponent: FileUploaderComponent;
+
   itemTypes: ItemType[];
   closets: Closet[];
   itemDto: ItemDto;
@@ -31,12 +35,31 @@ export class AddItemComponent implements OnInit {
     );
   }
 
-  addItem() {
+  addItem(): void {
     this.rest.addItem(this.itemDto).subscribe(
       () => {},
       (error) => console.log(error),
       () => this.router.navigateByUrl('items')
     )
+  }
+
+  uploadFile(): void {
+    this.fileUploaderComponent.uploadFile(1234);
+  }
+
+  hasFile(): boolean {
+    if(this.fileUploaderComponent) {
+      return !!this.fileUploaderComponent.fileUploaded;
+    }
+    return false;
+  }
+
+  isLoading(): boolean {
+    if(this.fileUploaderComponent) {
+      return this.fileUploaderComponent.loading;
+    } else {
+      return false;
+    }
   }
 
 }

@@ -10,6 +10,9 @@ import { tap, catchError } from "rxjs/operators";
 import { RatingDto } from './model/rating';
 import { ItemType } from './model/itemType';
 
+export const host = 'https://dds-2019-db.herokuapp.com/';
+// export const host = 'http://localhost:5000/';
+
 class LoginResponse {
   token: string
 }
@@ -18,8 +21,6 @@ class LoginResponse {
   providedIn: 'root'
 })
 export class RestService {
-  // host = 'https://dds-2019-db.herokuapp.com/';
-  host = 'http://localhost:5000/';
   token: string = '';
   constructor(
     private http: HttpClient,
@@ -28,7 +29,7 @@ export class RestService {
 
   login(username: string, password: string): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(this.host + 'login', { username: username, password: password });
+      .post<LoginResponse>(host + 'login', { username: username, password: password });
   }
 
   setToken(token: string): void {
@@ -44,20 +45,20 @@ export class RestService {
     const queryParamsString = this.joinQueryParams(queryParms);
     switch (method) {
       case 'GET':
-        return this.http.get<T>(this.host + path + queryParamsString, { headers: requestHeaders })
+        return this.http.get<T>(host + path + queryParamsString, { headers: requestHeaders })
           .pipe(
             // tap(_ => console.log('get:' + path + queryParamsString)),
             catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
           );
       case 'POST':
       case 'PUT':
-        return this.http.post<T>(this.host + path + queryParamsString, bodyParams, { headers: requestHeaders })
+        return this.http.post<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders })
           .pipe(
             // tap(_ => console.log('get:' + path + queryParamsString)),
             catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
           );
       case 'DELETE':
-        return this.http.delete<T>(this.host + path + queryParamsString, { headers: requestHeaders })
+        return this.http.delete<T>(host + path + queryParamsString, { headers: requestHeaders })
           .pipe(
             // tap(_ => console.log('get:' + path + queryParamsString)),
             catchError(this.handleError<T>(method + ': ' + path + queryParamsString))

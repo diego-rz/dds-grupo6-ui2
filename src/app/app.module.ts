@@ -18,6 +18,8 @@ import { EventComponent } from './event/event.component';
 import { CitiesPipe } from './cities.pipe';
 import { RatingsComponent } from './ratings/ratings.component';
 import { RateModalComponent } from './rate-modal/rate-modal.component';
+import { FileSelectDirective } from "ng2-file-upload";
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { RateModalComponent } from './rate-modal/rate-modal.component';
     EventComponent,
     CitiesPipe,
     RatingsComponent,
-    RateModalComponent
+    RateModalComponent,
+    FileSelectDirective,
+    FileUploaderComponent
   ],
   imports: [
     BrowserModule,
