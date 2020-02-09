@@ -8,6 +8,7 @@ import { Event, EventDto } from './model/event';
 import { Dressing } from './model/dressing';
 import { tap, catchError } from "rxjs/operators";
 import { RatingDto } from './model/rating';
+import { ItemType } from './model/itemType';
 
 class LoginResponse {
   token: string
@@ -17,8 +18,8 @@ class LoginResponse {
   providedIn: 'root'
 })
 export class RestService {
-  host = 'https://dds-2019-db.herokuapp.com/';
-  // host = 'http://localhost:5000/';
+  // host = 'https://dds-2019-db.herokuapp.com/';
+  host = 'http://localhost:5000/';
   token: string = '';
   constructor(
     private http: HttpClient,
@@ -147,6 +148,11 @@ export class RestService {
   addDressingRating(rating: RatingDto) {
     // return this.httpRequest('POST', 'puntajes', null, rating);
     return of({});
+  }
+
+  // TIPO PRENDA
+  getItemTypes(): Observable<ItemType[]> {
+    return this.httpRequest<ItemType[]>('GET', 'tiposPrenda');
   }
 
   /**
