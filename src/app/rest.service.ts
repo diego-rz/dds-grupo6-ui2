@@ -10,8 +10,8 @@ import { tap, catchError } from "rxjs/operators";
 import { RatingDto } from './model/rating';
 import { ItemType } from './model/itemType';
 
-export const host = 'https://dds-2019-db.herokuapp.com/';
-// export const host = 'http://localhost:5000/';
+// export const host = 'https://dds-2019-db.herokuapp.com/';
+export const host = 'http://localhost:5000/';
 
 class LoginResponse {
   token: string

@@ -17,7 +17,9 @@ export class AddItemComponent implements OnInit {
 
   itemTypes: ItemType[];
   closets: Closet[];
-  itemDto: ItemDto;
+  itemDto = new ItemDto();
+
+  currentStep = 1;
 
   constructor(
     private rest: RestService,
@@ -60,6 +62,29 @@ export class AddItemComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  back(): void {
+    if(this.currentStep !== 1) {
+      this.currentStep--;
+    }
+  }
+
+  forward(): void {
+    if(this.currentStep !== 2) {
+      this.currentStep++;
+    }
+  }
+
+  isComplete(): boolean {
+    return this.itemDto &&
+          this.itemDto.nombrePrenda &&
+          this.itemDto.guardarropaID > 0 &&
+          this.itemDto.tipoPrendaID > 0;
+  }
+
+  send(): void {
+
   }
 
 }
