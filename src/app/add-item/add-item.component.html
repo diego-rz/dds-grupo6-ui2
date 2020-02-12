@@ -6,7 +6,6 @@
 
       <div class="wrapper">
         <h3>Alta de Prenda</h3>
-        <span *ngIf="itemDto"> prenda {{itemDto.tipoPrendaID}}</span>
         <form action="" id="wizard">
           <!-- SECTION 1 -->
           <h4></h4>
@@ -19,21 +18,20 @@
                 <div class="form-holder">
                   <i class="zmdi zmdi-account-o"></i>
                   <select class="form-control" [(ngModel)]="itemDto.tipoPrendaID" name="tipoPrenda">
-                    <option *ngFor="let itemType of itemTypes" [value]="itemType.id">{{itemType.nombre}}</option>
+                    <option (click)="setAllowedMaterials()" *ngFor="let itemType of itemTypes" [value]="itemType.id">
+                      {{itemType.nombre}}</option>
                   </select>
                   <i class="zmdi zmdi-chevron-down"></i>
                 </div>
               </div>
               <div class="form-col">
                 <label for="">
-                  Puntaje Prenda
+                  Material
                 </label>
                 <div class="form-holder">
                   <i class="zmdi zmdi-account-o"></i>
-                  <select name="" id="" class="form-control">
-                    <option value="★" class="option">★</option>
-                    <option value="★★" class="option">★★</option>
-                    <option value="★★★" class="option">★★★</option>
+                  <select [(ngModel)]="itemDto.materialId" name="material" class="form-control">
+                    <option *ngFor="let material of allowedMaterials" [value]="material.id">{{material.nombre}}</option>
                   </select>
                   <i class="zmdi zmdi-chevron-down"></i>
                 </div>
@@ -42,11 +40,11 @@
             <div class="form-row">
               <div class="form-col">
                 <label for="">
-                  Color
+                  Color principal
                 </label>
                 <div class="form-holder">
                   <i class="zmdi zmdi-account-o"></i>
-                  <select name="" id="" class="form-control">
+                  <select name="firstColor" class="form-control">
                     <option value="Rojo" class="option">Rojo</option>
                     <option value="Gris" class="option">Azul</option>
                     <option value="Azul" class="option">Gris</option>
@@ -56,14 +54,14 @@
               </div>
               <div class="form-col">
                 <label for="">
-                  Asigna Guardarropas
+                  Color secundario
                 </label>
                 <div class="form-holder">
                   <i class="zmdi zmdi-account-o"></i>
-                  <select name="" id="" class="form-control">
-                    <option value="Guardarropas nº1" class="option">Guardarropas nº1</option>
-                    <option value="Guardarropas nº2" class="option">Guardarropas nº2</option>
-                    <option value="Guardarropas nº3" class="option">Guardarropas nº3</option>
+                  <select name="secondColor" class="form-control">
+                    <option value="Rojo" class="option">Rojo</option>
+                    <option value="Gris" class="option">Azul</option>
+                    <option value="Azul" class="option">Gris</option>
                   </select>
                   <i class="zmdi zmdi-chevron-down"></i>
                 </div>
@@ -79,20 +77,34 @@
             <div class="form-row">
               <div class="form-col">
                 <label for="">
-                  Imagen de Prenda
-                </label>
-                <div class="form-holder">
-                  <app-file-uploader></app-file-uploader>
-                </div>
-              </div>
-              <div class="form-col">
-                <label for="">
                   Nombre de Prenda
                 </label>
                 <div class="form-holder">
                   <i class="zmdi zmdi-account-o"></i>
+                  <input type="text" class="form-control" name="nombrePrenda" [(ngModel)]="itemDto.nombrePrenda" />
+                </div>
+              </div>
 
-                  <input type="text" class="form-control">
+              <div class="form-col">
+                <label for="">
+                  Guardarropa
+                </label>
+                <div class="form-holder">
+                  <i class="zmdi zmdi-account-o"></i>
+                  <select name="closetId" [(ngModel)]="itemDto.guardarropaID" class="form-control">
+                    <option *ngFor="let closet of closets" [value]="closet.id">{{closet.nombre}}</option>
+                  </select>
+                  <i class="zmdi zmdi-chevron-down"></i>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-col">
+                <label for="">
+                  Imagen de Prenda
+                </label>
+                <div class="form-holder">
+                  <app-file-uploader></app-file-uploader>
                 </div>
               </div>
             </div>

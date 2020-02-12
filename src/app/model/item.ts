@@ -12,7 +12,9 @@ export class Item extends IdName{
 
 export class ItemDto {
   tipoPrendaID: number;
+  materialId: number;
   colorPrincipal: string;
+  colorSecundario: string;
   guardarropaID: number;
   imagenUrl: string;
   nombrePrenda: string;

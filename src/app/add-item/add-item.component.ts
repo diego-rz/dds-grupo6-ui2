@@ -5,13 +5,14 @@ import { RestService } from '../rest.service';
 import { ItemDto } from '../model/item';
 import { Router } from '@angular/router';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
+import { Material } from '../model/idName';
 
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css']
 })
-export class AddItemComponent implements OnInit {
+export class AddItemComponent implements OnInit{
   @ViewChild(FileUploaderComponent, {static: false})
   private fileUploaderComponent: FileUploaderComponent;
 
@@ -20,6 +21,7 @@ export class AddItemComponent implements OnInit {
   itemDto = new ItemDto();
 
   currentStep = 1;
+  allowedMaterials: Material[] = [];
 
   constructor(
     private rest: RestService,
@@ -35,6 +37,16 @@ export class AddItemComponent implements OnInit {
       (itemTypes) => this.itemTypes = itemTypes,
       (error) => console.log(error),
     );
+  }
+
+  setAllowedMaterials(): void {
+    let itemType: ItemType;
+    for (const item of this.itemTypes) {
+      if (+item.id === +this.itemDto.tipoPrendaID) {
+        itemType = item;
+      }
+    }
+    this.allowedMaterials = itemType ? itemType.materialesPermitidos : [];
   }
 
   addItem(): void {
