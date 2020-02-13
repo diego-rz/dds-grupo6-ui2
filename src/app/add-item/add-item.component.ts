@@ -98,6 +98,7 @@ export class AddItemComponent implements OnInit{
   }
 
   send(): void {
+    this.formatColors();
     this.rest.addItem(this.itemDto).subscribe(
       (newItem: Item) => {
         if(newItem && newItem.id > 0) {
@@ -108,6 +109,18 @@ export class AddItemComponent implements OnInit{
       },
       error => console.log(error)
     )
+  }
+
+  formatColors() {
+    this.itemDto.colorPrincipal = this.hexToRgb(this.itemDto.colorPrincipal);
+    this.itemDto.colorSecundario = this.hexToRgb(this.itemDto.colorSecundario);
+  }
+
+  hexToRgb(value: string): string {
+    if (!value) {
+      return value;
+    }
+    return value.substring(1,3) + '|' + value.substring(3,5) + '|' + value.substring(5,7);
   }
 
 }
