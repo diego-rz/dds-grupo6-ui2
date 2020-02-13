@@ -1,0 +1,15 @@
+<div class="input-group mb-3">
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="inputGroupFile01" name="photo"
+      ng2FileSelect [uploader]="uploader"
+      [disabled]="uploader.getNotUploadedItems().length">
+    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">
+      {{fileUploaded ? fileUploaded.file.name : 'Seleccionar archivo...'}}
+    </label>
+  </div>
+  <div class="input-group-append">
+    <button type="button" class="input-group-text btn btn-outline-danger" id="inputGroupFileAddon02"
+      (click)="clearFilesQueue()"
+      [disabled]="!uploader.getNotUploadedItems().length">Cancelar</button>
+  </div>
+</div>

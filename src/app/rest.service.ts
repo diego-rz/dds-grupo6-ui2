@@ -8,6 +8,10 @@ import { Event, EventDto } from './model/event';
 import { Dressing } from './model/dressing';
 import { tap, catchError } from "rxjs/operators";
 import { RatingDto } from './model/rating';
+import { ItemType } from './model/itemType';
+
+// export const host = 'https://dds-2019-db.herokuapp.com/';
+export const host = 'http://localhost:5000/';
 
 class LoginResponse {
   token: string
@@ -17,8 +21,6 @@ class LoginResponse {
   providedIn: 'root'
 })
 export class RestService {
-  host = 'https://dds-2019-db.herokuapp.com/';
-  // host = 'http://localhost:5000/';
   token: string = '';
   constructor(
     private http: HttpClient,
@@ -27,14 +29,14 @@ export class RestService {
 
   login(username: string, password: string): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(this.host + 'login', { username: username, password: password });
+      .post<LoginResponse>(host + 'login', { username: username, password: password });
   }
 
   setToken(token: string): void {
     this.token = token;
   }
 
-  httpRequest<T>(method: string, path: string, queryParms?: QueryParam[], bodyParams?: T): Observable<T> {
+  httpRequest<T>(method: string, path: string, queryParms?: QueryParam[], bodyParams?: any): Observable<T> {
     if (!this.token) {
       this.handleError<T>(method);
       return null;
@@ -43,20 +45,20 @@ export class RestService {
     const queryParamsString = this.joinQueryParams(queryParms);
     switch (method) {
       case 'GET':
-        return this.http.get<T>(this.host + path + queryParamsString, { headers: requestHeaders })
+        return this.http.get<T>(host + path + queryParamsString, { headers: requestHeaders })
           .pipe(
             // tap(_ => console.log('get:' + path + queryParamsString)),
             catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
           );
       case 'POST':
       case 'PUT':
-        return this.http.post<T>(this.host + path + queryParamsString, bodyParams, { headers: requestHeaders })
+        return this.http.post<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders })
           .pipe(
             // tap(_ => console.log('get:' + path + queryParamsString)),
             catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
           );
       case 'DELETE':
-        return this.http.delete<T>(this.host + path + queryParamsString, { headers: requestHeaders })
+        return this.http.delete<T>(host + path + queryParamsString, { headers: requestHeaders })
           .pipe(
             // tap(_ => console.log('get:' + path + queryParamsString)),
             catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
@@ -116,8 +118,8 @@ export class RestService {
   getItem(itemId: number) {
     return this.httpRequest<Item>('GET', 'prendas/' + itemId);
   }
-  addItem(item: ItemDto) {
-    return this.httpRequest('POST', 'prendas', null, item);
+  addItem(item: ItemDto): Observable<Item> {
+    return this.httpRequest<Item>('POST', 'prendas', null, item);
   }
   modItem(item: Item) {
     return this.httpRequest('PUT', 'prendas', null, item);
@@ -147,6 +149,11 @@ export class RestService {
   addDressingRating(rating: RatingDto) {
     // return this.httpRequest('POST', 'puntajes', null, rating);
     return of({});
+  }
+
+  // TIPO PRENDA
+  getItemTypes(): Observable<ItemType[]> {
+    return this.httpRequest<ItemType[]>('GET', 'tiposPrenda');
   }
 
   /**
