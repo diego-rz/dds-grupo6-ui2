@@ -18,7 +18,7 @@ import { EventComponent } from './event/event.component';
 import { CitiesPipe } from './cities.pipe';
 import { RatingsComponent } from './ratings/ratings.component';
 import { RateModalComponent } from './rate-modal/rate-modal.component';
-import { FileSelectDirective } from "ng2-file-upload";
+import { FileUploadModule } from "ng2-file-upload";
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 
 @NgModule({
@@ -37,14 +37,14 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     CitiesPipe,
     RatingsComponent,
     RateModalComponent,
-    FileSelectDirective,
     FileUploaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

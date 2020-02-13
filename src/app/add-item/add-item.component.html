@@ -108,9 +108,4 @@
     </div>
     <!-- FIN WIZARD -->
   </div>
-  <button type="button" class="input-group-text btn btn-outline-primary" (click)="uploadFile()"
-    [disabled]="!hasFile() || isLoading()">
-    <span *ngIf="!isLoading()">Subir</span>
-    <span *ngIf="isLoading()" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-  </button>
 </div>
