@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { RestService, host } from '../rest.service';
+import { Router } from '@angular/router';
 
 const URL = host + 'archivos';
 
@@ -16,7 +17,8 @@ export class FileUploaderComponent implements OnInit {
   loading = false;
 
   constructor(
-    private rest: RestService
+    private rest: RestService,
+    private router: Router
   ) {
     this.uploader = new FileUploader({
        url: URL, itemAlias: 'photo', authToken: rest.token,
@@ -34,6 +36,7 @@ export class FileUploaderComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.fileUploaded = undefined;
       this.loading = false;
+      this.router.navigateByUrl('items');
     };
   }
 

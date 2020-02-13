@@ -36,7 +36,7 @@ export class RestService {
     this.token = token;
   }
 
-  httpRequest<T>(method: string, path: string, queryParms?: QueryParam[], bodyParams?: T): Observable<T> {
+  httpRequest<T>(method: string, path: string, queryParms?: QueryParam[], bodyParams?: any): Observable<T> {
     if (!this.token) {
       this.handleError<T>(method);
       return null;
@@ -118,8 +118,8 @@ export class RestService {
   getItem(itemId: number) {
     return this.httpRequest<Item>('GET', 'prendas/' + itemId);
   }
-  addItem(item: ItemDto) {
-    return this.httpRequest('POST', 'prendas', null, item);
+  addItem(item: ItemDto): Observable<Item> {
+    return this.httpRequest<Item>('POST', 'prendas', null, item);
   }
   modItem(item: Item) {
     return this.httpRequest('PUT', 'prendas', null, item);

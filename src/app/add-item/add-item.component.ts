@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemType } from '../model/itemType';
 import { Closet } from '../model/closet';
 import { RestService } from '../rest.service';
-import { ItemDto } from '../model/item';
+import { ItemDto, Item } from '../model/item';
 import { Router } from '@angular/router';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { Material } from '../model/idName';
@@ -57,8 +57,10 @@ export class AddItemComponent implements OnInit{
     )
   }
 
-  uploadFile(): void {
-    this.fileUploaderComponent.uploadFile(1234);
+  uploadFile(newItemId: number): void {
+    if (newItemId) {
+      this.fileUploaderComponent.uploadFile(newItemId);
+    }
   }
 
   hasFile(): boolean {
@@ -96,7 +98,16 @@ export class AddItemComponent implements OnInit{
   }
 
   send(): void {
-
+    this.rest.addItem(this.itemDto).subscribe(
+      (newItem: Item) => {
+        if(newItem && newItem.id > 0) {
+          this.uploadFile(newItem.id);
+        } else {
+          console.log("Invalid item response");
+        }
+      },
+      error => console.log(error)
+    )
   }
 
 }

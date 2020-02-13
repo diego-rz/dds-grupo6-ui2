@@ -8,12 +8,11 @@
         <h3>Alta de Prenda</h3>
         <form action="" id="wizard">
           <!-- SECTION 1 -->
-          <h4></h4>
           <section *ngIf="currentStep === 1">
             <div class="form-row">
               <div class="form-col">
                 <label for="">
-                  Tipo de Prenda
+                  Nueva prenda
                 </label>
                 <div class="form-holder">
                   <i class="zmdi zmdi-account-o"></i>
@@ -43,13 +42,7 @@
                   Color principal
                 </label>
                 <div class="form-holder">
-                  <i class="zmdi zmdi-account-o"></i>
-                  <select name="firstColor" class="form-control">
-                    <option value="Rojo" class="option">Rojo</option>
-                    <option value="Gris" class="option">Azul</option>
-                    <option value="Azul" class="option">Gris</option>
-                  </select>
-                  <i class="zmdi zmdi-chevron-down"></i>
+                  <input type="color" name="firstColor" [(ngModel)]="itemDto.colorPrincipal">
                 </div>
               </div>
               <div class="form-col">
@@ -57,13 +50,7 @@
                   Color secundario
                 </label>
                 <div class="form-holder">
-                  <i class="zmdi zmdi-account-o"></i>
-                  <select name="secondColor" class="form-control">
-                    <option value="Rojo" class="option">Rojo</option>
-                    <option value="Gris" class="option">Azul</option>
-                    <option value="Azul" class="option">Gris</option>
-                  </select>
-                  <i class="zmdi zmdi-chevron-down"></i>
+                  <input type="color" name="firstColor" [(ngModel)]="itemDto.colorSecundario">
                 </div>
               </div>
             </div>
@@ -72,7 +59,6 @@
           </section>
 
           <!-- SECTION 2 -->
-          <h4></h4>
           <section *ngIf="currentStep === 2">
             <div class="form-row">
               <div class="form-col">
@@ -120,7 +106,6 @@
         </form>
       </div>
     </div>
-    <!-- Template created and distributed by Colorlib -->
     <!-- FIN WIZARD -->
   </div>
   <button type="button" class="input-group-text btn btn-outline-primary" (click)="uploadFile()"

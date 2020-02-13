@@ -12,7 +12,7 @@
         <table class="table dataTable">
           <thead>
             <tr role="row">
-              <th>Foto</th>
+              <th class="w-25">Foto</th>
               <th>Tipo</th>
               <th>Calificar</th>
               <th> </th>
@@ -21,7 +21,7 @@
           <tbody>
             <!-- Inicio de registro -->
             <tr role="row" *ngFor="let item of items">
-              <td><img src="" class="avatar" alt="Avatar Image"></td>
+              <td><img src="https://ddsgrupo6.000webhostapp.com/img/{{item.id}}.jpg" class="img-fluid img-thumbnail"></td>
               <td>{{item.tipoPrenda.nombre}}</td>
               <td>
                 <form id="{{item.id}}">

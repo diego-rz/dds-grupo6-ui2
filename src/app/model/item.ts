@@ -16,6 +16,6 @@ export class ItemDto {
   colorPrincipal: string;
   colorSecundario: string;
   guardarropaID: number;
-  imagenUrl: string;
+  imagenUrl: string = '';
   nombrePrenda: string;
 }
