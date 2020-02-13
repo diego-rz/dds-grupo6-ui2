@@ -30,10 +30,6 @@ export class EventComponent implements OnInit {
     });
   }
 
-  viewItems(dressing: Dressing): void {
-    this.router.navigateByUrl(`events/${dressing.id}/items`, {state: {data: {dressing}}});
-  }
-
   setDressingId(dressingId: number) {
     this.dressingId = dressingId;
   }
@@ -48,6 +44,10 @@ export class EventComponent implements OnInit {
         });
       }
     )
+  }
+
+  generateSuggestions() {
+
   }
 
   private getAtuendo(): Dressing {

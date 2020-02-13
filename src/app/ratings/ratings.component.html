@@ -21,7 +21,8 @@
               <td>{{dressing.rate}}</td>
               <td>
                 <button class="btn btn-primary" data-toggle="modal" (click)="setUpdated(dressing.id)" data-target="#modalRating">
-                  <span class="text">Modificar</span>
+                  <span *ngIf="dressing.rate" class="text">Modificar</span>
+                  <span *ngIf="!dressing.rate" class="text">Calificar</span>
                 </button>
               </td>
             </tr>
