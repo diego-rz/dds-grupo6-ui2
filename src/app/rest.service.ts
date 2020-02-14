@@ -7,7 +7,7 @@ import { Item, ItemDto } from './model/item';
 import { Event, EventDto } from './model/event';
 import { Dressing } from './model/dressing';
 import { tap, catchError } from "rxjs/operators";
-import { RatingDto } from './model/rating';
+import { RatingDto, ItemRating } from './model/rating';
 import { ItemType } from './model/itemType';
 
 export const host = 'https://dds-2019-db.herokuapp.com/';
@@ -124,13 +124,13 @@ export class RestService {
   modItem(item: Item) {
     return this.httpRequest('PUT', 'prendas', null, item);
   }
-  deletePrenda(itemId: number) {
-    this.httpRequest('DELETE', 'prendas/' + itemId);
+  deleteItem(itemId: number): Observable<any> {
+    return this.httpRequest<any>('DELETE', 'prendas/' + itemId);
   }
 
   //PUNTAJES
-  getItemRatings() {
-    return this.httpRequest('GET', 'puntajes');
+  getItemRatings(): Observable<ItemRating[]> {
+    return this.httpRequest<ItemRating[]>('GET', 'puntajes');
   }
   getItemRating(ratingId: number) {
     return this.httpRequest('GET', 'puntajes/' + ratingId);
@@ -167,7 +167,6 @@ export class RestService {
 
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);
-      this.router.navigateByUrl('/login');
 
       return of(result as T);
     };

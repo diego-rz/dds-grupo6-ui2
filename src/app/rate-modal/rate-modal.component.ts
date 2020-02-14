@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { RestService } from '../rest.service';
 export class RateModalComponent implements OnInit {
   @Input() type: string;
   @Input() id: number;
+  @Output() finish = new EventEmitter<string>();
 
   constructor(
     private rest: RestService
@@ -23,14 +24,14 @@ export class RateModalComponent implements OnInit {
         this.rest.addItemRating({prendaid: this.id, puntaje: rating}).subscribe(
           () => {},
           error => console.log(error),
-          () => {}
-        )
-        break;
-        case 'DRESSING':
+          () => {this.finish.emit('ITEM')}
+          )
+          break;
+          case 'DRESSING':
             this.rest.addDressingRating({prendaid: this.id, puntaje: rating}).subscribe(
               () => {},
               error => console.log(error),
-              () => {}
+              () => {this.finish.emit('DRESSING')}
             )
         break;
       default:

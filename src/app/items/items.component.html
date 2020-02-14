@@ -9,7 +9,7 @@
         </a>
       </div>
       <div class="table-responsive col-sm-12">
-        <table class="table dataTable">
+        <table *ngIf="itemsWithRatings" class="table dataTable">
           <thead>
             <tr role="row">
               <th class="w-25">Foto</th>
@@ -20,34 +20,19 @@
           </thead>
           <tbody>
             <!-- Inicio de registro -->
-            <tr role="row" *ngFor="let item of items">
-              <td><img src="https://ddsgrupo6.000webhostapp.com/img/{{item.id}}.jpg" class="img-fluid img-thumbnail"></td>
-              <td>{{item.tipoPrenda.nombre}}</td>
+            <tr role="row" *ngFor="let itemWithRate of itemsWithRatings">
+              <td><img src="https://ddsgrupo6.000webhostapp.com/img/{{itemWithRate.item.id}}.jpg" class="img-fluid img-thumbnail"></td>
+              <td>{{itemWithRate.item.tipoPrenda.nombre}}</td>
               <td>
-                <form id="{{item.id}}">
-                  <p class="clasificacion">
-                    <input id="radio1-{{item.id}}" type="radio" name="estrellas" value="5">
-                    <label for="radio1-{{item.id}}">★</label>
-                    <input id="radio2-{{item.id}}" type="radio" name="estrellas" value="4">
-                    <label for="radio2-{{item.id}}">★</label>
-                    <input id="radio3-{{item.id}}" type="radio" name="estrellas" value="3">
-                    <label for="radio3-{{item.id}}">★</label>
-                    <input id="radio4-{{item.id}}" type="radio" name="estrellas" value="2">
-                    <label for="radio4-{{item.id}}">★</label>
-                    <input id="radio5-{{item.id}}" type="radio" name="estrellas" value="1">
-                    <label for="radio5-{{item.id}}">★</label>
-                  </p>
-                </form>
+                {{itemWithRate.rating}}
               </td>
               <td>
-                <button class="btn btn-primary">
-                  <span class="text">Información</span>
+                <button class="btn btn-primary" data-toggle="modal" (click)="setRatingItem(itemWithRate.item.id)" data-target="#modalRating">
+                  <span class="text">Calificar</span>
                 </button>
-                <button class="btn btn-primary">
-                  <span class="text">Foto</span>
-                </button>
+                <app-rate-modal [type]="'ITEM'" [id]="ratingItemId" (finish)="onRating()"></app-rate-modal>
                 <button class="btn btn-danger">
-                  <span class="text">Eliminar</span>
+                  <span class="text" (click)="deleteItem(itemWithRate.item.id)">Eliminar</span>
                 </button>
               </td>
             </tr>
