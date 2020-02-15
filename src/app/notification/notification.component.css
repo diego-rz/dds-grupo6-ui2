@@ -1,0 +1,6 @@
+#notif {
+  position: fixed;
+  z-index: 100;
+  top: 68px;
+  right: 25px;
+}

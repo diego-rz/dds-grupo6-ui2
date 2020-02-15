@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Item } from '../model/item';
 import { Closet } from '../model/closet';
 import { Dressing } from '../model/dressing';
 import { RatingDto, ItemRating } from '../model/rating';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-items',
@@ -11,6 +12,9 @@ import { RatingDto, ItemRating } from '../model/rating';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit, AfterViewInit {
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+
   @Input() items: Item[];
   itemRatings: ItemRating[];
 
@@ -48,9 +52,13 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   }
 
   async getDataFromServer() {
-    await this.setItems();
-    await this.setItemRatings();
-    this.setItemsWithRatings();
+    try {
+      await this.setItems();
+      await this.setItemRatings();
+      this.setItemsWithRatings();
+    } catch (error) {
+      this.notification.show();
+    }
   }
 
   async setItems() {
@@ -60,7 +68,11 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   }
 
   async setItemRatings() {
-    this.itemRatings = await this.rest.getItemRatings().toPromise();
+    try {
+      this.itemRatings = await this.rest.getItemRatings().toPromise();
+    } catch (error) {
+      this.notification.show();
+    }
   }
 
   setItemsWithRatings() {
@@ -79,7 +91,11 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   }
 
   async deleteItem(itemId: number) {
-    await this.rest.deleteItem(itemId).toPromise();
-    this.getDataFromServer();
+    try {
+      await this.rest.deleteItem(itemId).toPromise();
+      this.getDataFromServer();
+    } catch (error) {
+      this.notification.show();
+    }
   }
 }

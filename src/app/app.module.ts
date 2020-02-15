@@ -20,6 +20,7 @@ import { RatingsComponent } from './ratings/ratings.component';
 import { RateModalComponent } from './rate-modal/rate-modal.component';
 import { FileUploadModule } from "ng2-file-upload";
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     CitiesPipe,
     RatingsComponent,
     RateModalComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
