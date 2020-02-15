@@ -107,8 +107,8 @@ export class RestService {
     return this.httpRequest('DELETE', 'eventos/' + eventId);
   }
   setEventDressing(eventId: number, atuendoId: number) {
-    const queryParam = {key: 'atuendoId', value: atuendoId.toString()} as QueryParam;
-    return this.httpRequest('POST', 'eventos/' + eventId + '/atuendos', [queryParam]);
+    const body = {eventoid: eventId, atuendoid: atuendoId};
+    return this.httpRequest('POST', 'elegir', null, body);
   }
 
   //PRENDAS

@@ -23,11 +23,13 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
     const eventId = +this.route.snapshot.paramMap.get('id');
-    this.rest.getEvent(eventId).subscribe(event => {
-      this.event = event;
-      event.posiblesAtuendos = [this.getAtuendo()];
-      event.atuendoElegido = this.getAtuendo();
-    });
+    this.setEventFromServer(eventId);
+  }
+
+  async setEventFromServer(eventId: number) {
+    this.event = await this.rest.getEvent(eventId).toPromise();
+    this.event.posiblesAtuendos = [this.getAtuendo()];
+    this.event.atuendoElegido = this.getAtuendo();
   }
 
   setDressingId(dressingId: number) {
@@ -37,11 +39,7 @@ export class EventComponent implements OnInit {
   setEventDressing(dressingId: number) {
     this.rest.setEventDressing(this.event.id, dressingId).subscribe(
       () => {
-        this.rest.getEvent(this.event.id).subscribe(event => {
-          this.event = event;
-          event.posiblesAtuendos = [this.getAtuendo()];
-          event.atuendoElegido = this.getAtuendo();
-        });
+        this.setEventFromServer(this.event.id);
       }
     )
   }
