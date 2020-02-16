@@ -45,24 +45,13 @@ export class RestService {
     const queryParamsString = this.joinQueryParams(queryParms);
     switch (method) {
       case 'GET':
-        return this.http.get<T>(host + path + queryParamsString, { headers: requestHeaders })
-          .pipe(
-            // tap(_ => console.log('get:' + path + queryParamsString)),
-            catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
-          );
+        return this.http.get<T>(host + path + queryParamsString, { headers: requestHeaders });
       case 'POST':
+        return this.http.post<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders });
       case 'PUT':
-        return this.http.post<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders })
-          .pipe(
-            // tap(_ => console.log('get:' + path + queryParamsString)),
-            catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
-          );
+        return this.http.put<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders });
       case 'DELETE':
-        return this.http.delete<T>(host + path + queryParamsString, { headers: requestHeaders })
-          .pipe(
-            // tap(_ => console.log('get:' + path + queryParamsString)),
-            catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
-          );
+        return this.http.delete<T>(host + path + queryParamsString, { headers: requestHeaders });
       default:
         break;
     }

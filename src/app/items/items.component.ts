@@ -24,6 +24,11 @@ export class ItemsComponent implements OnInit, AfterViewInit {
     item: Item,
     rating: number
   }[];
+  modalItemId: number;
+  deletedItem: Item = {
+    id: -1,
+    nombre: ''
+  };
 
   constructor(
     private rest: RestService
@@ -90,12 +95,20 @@ export class ItemsComponent implements OnInit, AfterViewInit {
     this.getDataFromServer();
   }
 
-  async deleteItem(itemId: number) {
+  async deleteItem() {
     try {
-      await this.rest.deleteItem(itemId).toPromise();
+      await this.rest.deleteItem(this.deletedItem.id).toPromise();
       this.getDataFromServer();
     } catch (error) {
       this.notification.show();
     }
+  }
+
+  setModalItemId(itemId: number) {
+    this.modalItemId = itemId;
+  }
+
+  setDeletedItem(item: Item) {
+    this.deletedItem = item;
   }
 }

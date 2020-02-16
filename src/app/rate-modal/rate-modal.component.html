@@ -2,7 +2,8 @@
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
   <div class="modal-content">
     <div class="modal-header mx-auto">
-      <h5>Calificar atuendo</h5>
+      <h5 *ngIf="type === 'DRESSING'">Calificar atuendo</h5>
+      <h5 *ngIf="type === 'ITEM'">Calificar prenda</h5>
     </div>
     <div class="modal-body mx-auto">
       <div class="btn-group" role="group" data-dismiss="modal">
