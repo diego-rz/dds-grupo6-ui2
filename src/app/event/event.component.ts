@@ -48,6 +48,10 @@ export class EventComponent implements OnInit {
 
   }
 
+  viewItems(dressing: Dressing) {
+    this.router.navigateByUrl('closets/items', {state: {data: {dressing}}});
+  }
+
   private getAtuendo(): Dressing {
     const tipoRemera: ItemType = {
       id: 1,

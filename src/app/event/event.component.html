@@ -5,8 +5,8 @@
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
-            <div class="row no-gutters align-item-center">
-              <div class="text-primary col mr-2">
+            <div class="row no-gutters align-item-center text-primary">
+              <div class="col mr-2">
                 <ul class="list-unstyled" style="margin: 0">
                   <li>{{event.ciudad | cities}}</li>
                 </ul>
@@ -21,14 +21,14 @@
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
           <div class="card-body">
-            <div class="row no-gutters align-item-center">
-              <div class="text-success col mr-2">
+            <div class="row no-gutters align-item-center text-success">
+              <div class="col mr-2">
                 <ul class="list-unstyled" style="margin: 0">
-                  <li>{{event.fecha}}</li>
+                  <li>{{event.fecha | date:'fullDate'}}</li>
                 </ul>
               </div>
               <div class="col-auto">
-                <i class="fas fa-calendar fa-2x"></i>
+                <i class="fas fa-calendar-alt fa-2x"></i>
               </div>
             </div>
           </div>
@@ -37,8 +37,8 @@
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100 py-2">
           <div class="card-body">
-            <div class="row no-gutters align-item-center">
-              <div class="text-warning col mr-2">
+            <div class="row no-gutters align-item-center text-warning">
+              <div class="col mr-2">
                 <ul class="list-unstyled" style="margin: 0">
                   <li>{{event.temperatura}} °C</li>
                 </ul>

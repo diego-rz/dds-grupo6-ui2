@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { Closet } from './model/closet';
 import { Item, ItemDto } from './model/item';
 import { Event, EventDto } from './model/event';
-import { Dressing } from './model/dressing';
-import { tap, catchError } from "rxjs/operators";
 import { RatingDto, ItemRating } from './model/rating';
 import { ItemType } from './model/itemType';
 
