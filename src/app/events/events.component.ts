@@ -18,9 +18,7 @@ export class EventsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const calendar = new CalendarYvv('#calendar');
-    calendar.funcPer = function(ev){
-      console.log(ev)
-    };
+    calendar.createCalendar();
 
     calendar.funcNext = calendar.funcPrev = (ev) => {
       ev.diasResal = this.getDiasResal(ev);

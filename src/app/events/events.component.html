@@ -5,6 +5,7 @@
       <div id="calendar"></div>
     </div>
     <div class="card card-body">
+      <h4 *ngIf="!events || events.length === 0">No hay eventos</h4>
       <div class="row" style="margin: 0">
         <a routerLink="add" class="btn btn-success">
           <span class="text">Agregar</span>
