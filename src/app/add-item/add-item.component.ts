@@ -6,6 +6,7 @@ import { ItemDto, Item } from '../model/item';
 import { Router } from '@angular/router';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { Material } from '../model/idName';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-add-item',
@@ -13,6 +14,9 @@ import { Material } from '../model/idName';
   styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent implements OnInit{
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+
   @ViewChild(FileUploaderComponent, {static: false})
   private fileUploaderComponent: FileUploaderComponent;
 
@@ -31,11 +35,11 @@ export class AddItemComponent implements OnInit{
   ngOnInit() {
     this.rest.getClosets().subscribe(
       (closets) => this.closets = closets,
-      (error) => console.log(error),
+      (error) => {console.log(error); this.notification.show()},
     );
     this.rest.getItemTypes().subscribe(
       (itemTypes) => this.itemTypes = itemTypes,
-      (error) => console.log(error),
+      (error) => {console.log(error); this.notification.show()},
     );
   }
 
@@ -52,7 +56,7 @@ export class AddItemComponent implements OnInit{
   addItem(): void {
     this.rest.addItem(this.itemDto).subscribe(
       () => {},
-      (error) => console.log(error),
+      (error) => {console.log(error); this.notification.show()},
       () => this.router.navigateByUrl('items')
     )
   }
@@ -107,7 +111,7 @@ export class AddItemComponent implements OnInit{
           console.log("Invalid item response");
         }
       },
-      error => console.log(error)
+      error => {console.log(error); this.notification.show()}
     )
   }
 

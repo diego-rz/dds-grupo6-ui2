@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+
+import localeEsAr from '@angular/common/locales/es-AR';
+import { registerLocaleData } from "@angular/common";
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -20,6 +23,9 @@ import { RatingsComponent } from './ratings/ratings.component';
 import { RateModalComponent } from './rate-modal/rate-modal.component';
 import { FileUploadModule } from "ng2-file-upload";
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { NotificationComponent } from './notification/notification.component';
+
+registerLocaleData(localeEsAr, 'es-ar');
 
 @NgModule({
   declarations: [
@@ -37,7 +43,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     CitiesPipe,
     RatingsComponent,
     RateModalComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,9 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     HttpClientModule,
     FileUploadModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-ar' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

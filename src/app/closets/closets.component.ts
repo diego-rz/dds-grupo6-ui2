@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Closet } from '../model/closet';
 import { Router, NavigationEnd } from '@angular/router';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-closets',
@@ -9,6 +10,9 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./closets.component.css']
 })
 export class ClosetsComponent implements AfterViewInit {
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+
   closets: Closet[];
   deleteId: number;
 
@@ -18,9 +22,9 @@ export class ClosetsComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    this.rest.getClosets().subscribe(closets => {
-      this.closets = closets;
-    });
+    this.rest.getClosets().subscribe(closets => this.closets = closets,
+      error => {console.log(error); this.notification.show()}
+    );
   }
 
   viewItems(closet: Closet): void {
@@ -34,7 +38,7 @@ export class ClosetsComponent implements AfterViewInit {
   delete(): void {
     this.rest.deleteCloset(this.deleteId).subscribe(
       () => {},
-      error => console.log(error),
+      error => {console.log(error); this.notification.show()},
       () => {
         this.rest.getClosets().subscribe(closets => {
           this.closets = closets;

@@ -5,10 +5,9 @@ import { Router } from '@angular/router';
 import { Closet } from './model/closet';
 import { Item, ItemDto } from './model/item';
 import { Event, EventDto } from './model/event';
-import { Dressing } from './model/dressing';
-import { tap, catchError } from "rxjs/operators";
 import { RatingDto, ItemRating } from './model/rating';
 import { ItemType } from './model/itemType';
+import { Dressing } from './model/dressing';
 
 export const host = 'https://dds-2019-db.herokuapp.com/';
 // export const host = 'http://localhost:5000/';
@@ -45,24 +44,13 @@ export class RestService {
     const queryParamsString = this.joinQueryParams(queryParms);
     switch (method) {
       case 'GET':
-        return this.http.get<T>(host + path + queryParamsString, { headers: requestHeaders })
-          .pipe(
-            // tap(_ => console.log('get:' + path + queryParamsString)),
-            catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
-          );
+        return this.http.get<T>(host + path + queryParamsString, { headers: requestHeaders });
       case 'POST':
+        return this.http.post<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders });
       case 'PUT':
-        return this.http.post<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders })
-          .pipe(
-            // tap(_ => console.log('get:' + path + queryParamsString)),
-            catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
-          );
+        return this.http.put<T>(host + path + queryParamsString, bodyParams, { headers: requestHeaders });
       case 'DELETE':
-        return this.http.delete<T>(host + path + queryParamsString, { headers: requestHeaders })
-          .pipe(
-            // tap(_ => console.log('get:' + path + queryParamsString)),
-            catchError(this.handleError<T>(method + ': ' + path + queryParamsString))
-          );
+        return this.http.delete<T>(host + path + queryParamsString, { headers: requestHeaders });
       default:
         break;
     }
@@ -107,8 +95,13 @@ export class RestService {
     return this.httpRequest('DELETE', 'eventos/' + eventId);
   }
   setEventDressing(eventId: number, atuendoId: number) {
-    const queryParam = {key: 'atuendoId', value: atuendoId.toString()} as QueryParam;
-    return this.httpRequest('POST', 'eventos/' + eventId + '/atuendos', [queryParam]);
+    const body = {eventoid: eventId, atuendoid: atuendoId};
+    return this.httpRequest('POST', 'elegir', null, body);
+  }
+  getEventSuggestions(closetId: number, eventId: number): Observable<Dressing> {
+    const closetIdParam = {key: 'guardarropa', value: closetId.toString()} as QueryParam;
+    const eventIdParam = {key: 'evento', value: eventId.toString()} as QueryParam;
+    return this.httpRequest<Dressing>('GET', 'atuendos', [closetIdParam, eventIdParam]);
   }
 
   //PRENDAS

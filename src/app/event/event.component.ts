@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Event } from '../model/event';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 import { Dressing } from '../model/dressing';
 import { ItemType } from '../model/itemType';
 import { Item } from '../model/item';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-event',
@@ -12,8 +13,12 @@ import { Item } from '../model/item';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+
   @Input() event: Event;
   dressingId: number;
+  suggestions: Dressing[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -23,11 +28,18 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
     const eventId = +this.route.snapshot.paramMap.get('id');
-    this.rest.getEvent(eventId).subscribe(event => {
-      this.event = event;
-      event.posiblesAtuendos = [this.getAtuendo()];
-      event.atuendoElegido = this.getAtuendo();
-    });
+    this.setEventFromServer(eventId);
+  }
+
+  async setEventFromServer(eventId: number) {
+    try {
+      this.event = await this.rest.getEvent(eventId).toPromise();
+    } catch(error) {
+      console.log(error);
+      this.notification.show();
+    }
+    this.event.posiblesAtuendos = [this.getAtuendo()];
+    this.event.atuendoElegido = this.getAtuendo();
   }
 
   setDressingId(dressingId: number) {
@@ -36,18 +48,26 @@ export class EventComponent implements OnInit {
 
   setEventDressing(dressingId: number) {
     this.rest.setEventDressing(this.event.id, dressingId).subscribe(
-      () => {
-        this.rest.getEvent(this.event.id).subscribe(event => {
-          this.event = event;
-          event.posiblesAtuendos = [this.getAtuendo()];
-          event.atuendoElegido = this.getAtuendo();
-        });
-      }
+      () => this.setEventFromServer(this.event.id),
+      error => {console.log(error); this.notification.show()}
     )
   }
 
-  generateSuggestions() {
+  async generateSuggestions() {
+    try {
+      const closets = await this.rest.getClosets().toPromise();
+      for (const closet of closets) {
+        const suggestionsResponse = await this.rest.getEventSuggestions(closet.id, this.event.id).toPromise();
+        this.suggestions.push(suggestionsResponse);
+      }
+    } catch (error) {
+      console.log(error);
+      this.notification.show();
+    }
+  }
 
+  viewItems(dressing: Dressing) {
+    this.router.navigateByUrl('closets/items', {state: {data: {dressing}}});
   }
 
   private getAtuendo(): Dressing {

@@ -1,3 +1,4 @@
+<app-notification></app-notification>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
   <!-- Begin Page Content -->
@@ -14,26 +15,56 @@
             <tr role="row">
               <th class="w-25">Foto</th>
               <th>Tipo</th>
-              <th>Calificar</th>
+              <th>
+                <span class="d-none d-sm-table-cell">Calificación</span>
+              </th>
               <th> </th>
             </tr>
           </thead>
           <tbody>
             <!-- Inicio de registro -->
             <tr role="row" *ngFor="let itemWithRate of itemsWithRatings">
-              <td><img src="https://ddsgrupo6.000webhostapp.com/img/{{itemWithRate.item.id}}.jpg" class="img-fluid img-thumbnail"></td>
-              <td>{{itemWithRate.item.tipoPrenda.nombre}}</td>
+              <td style="cursor: pointer;">
+                <img src="https://ddsgrupo6.000webhostapp.com/img/{{itemWithRate.item.id}}.jpg"
+                  class="img-fluid img-thumbnail"
+                  data-toggle="modal"
+                  data-target="#itemImageModal"
+                  (click)="setModalItemId(itemWithRate.item.id)">
+
+                <div class="modal fade" id="itemImageModal" tabindex="-1" role="dialog" aria-labelledby="itemImageModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <img class="img-fluid" src="https://ddsgrupo6.000webhostapp.com/img/{{modalItemId}}.jpg" />
+                  </div>
+                </div>
+
+
+              </td>
+              <td>{{itemWithRate.item.nombre}}</td>
               <td>
-                {{itemWithRate.rating}}
+                <span *ngIf="itemWithRate.rating">{{itemWithRate.rating}}</span>
+                <span *ngIf="!itemWithRate.rating">-</span>
               </td>
               <td>
                 <button class="btn btn-primary" data-toggle="modal" (click)="setRatingItem(itemWithRate.item.id)" data-target="#modalRating">
                   <span class="text">Calificar</span>
                 </button>
                 <app-rate-modal [type]="'ITEM'" [id]="ratingItemId" (finish)="onRating()"></app-rate-modal>
-                <button class="btn btn-danger">
-                  <span class="text" (click)="deleteItem(itemWithRate.item.id)">Eliminar</span>
+                <button class="btn btn-danger" (click)="setDeletedItem(itemWithRate.item)" data-toggle="modal" data-target="#deleteModal">
+                  <span class="text">Eliminar</span>
                 </button>
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        ¿Eliminar prenda "{{deletedItem.nombre}}"?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteItem()">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>

@@ -1,3 +1,4 @@
+<app-notification></app-notification>
 <div class="d-flex flex-column">
   <div class="container-fluid">
     <!-- Vista de calendario -->
@@ -5,6 +6,7 @@
       <div id="calendar"></div>
     </div>
     <div class="card card-body">
+      <h4 *ngIf="!events || events.length === 0">No hay eventos</h4>
       <div class="row" style="margin: 0">
         <a routerLink="add" class="btn btn-success">
           <span class="text">Agregar</span>
@@ -24,8 +26,14 @@
             <!-- Fila evento-->
             <tr *ngFor="let event of events" role="row">
               <td>{{event.nombre}}</td>
-              <td class="d-none d-sm-table-cell">{{event.ciudad | cities}}</td>
-              <td class="d-none d-sm-table-cell">{{event.fecha | date}}</td>
+              <td class="d-none d-sm-table-cell">
+                <span *ngIf="event.ciudad">{{event.ciudad | cities}}</span>
+                <span *ngIf="!event.ciudad">-</span>
+              </td>
+              <td class="d-none d-sm-table-cell">
+                <span *ngIf="isValidDate(event.fecha)">{{event.fecha | date}}</span>
+                <span *ngIf="!isValidDate(event.fecha)">-</span>
+              </td>
               <td>
                 <a class="btn btn-primary" routerLink="{{event.id}}" >
                   <span class="text">Información</span>
