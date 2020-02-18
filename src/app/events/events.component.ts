@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CalendarYvv } from './CalendarYvv';
 import { RestService } from '../rest.service';
 import { Event } from "../model/event";
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-events',
@@ -9,6 +10,9 @@ import { Event } from "../model/event";
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements AfterViewInit {
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+
   events: Event[];
   deleteId: number;
 
@@ -30,7 +34,8 @@ export class EventsComponent implements AfterViewInit {
       this.events.forEach(event => event.fecha = new Date(event.fecha));
       calendar.diasResal = this.getDiasResal(calendar);
       calendar.createCalendar();
-    });
+    },
+    error => {console.log(error); this.notification.show()});
   }
 
   getDiasResal(ev: CalendarYvv): number[] {
@@ -46,7 +51,7 @@ export class EventsComponent implements AfterViewInit {
   delete() {
     this.rest.deleteEvent(this.deleteId).subscribe(
       () => {},
-      error => console.log(error),
+      error => {console.log(error); this.notification.show()},
       () => {
         this.rest.getEvents().subscribe(events => {
           const calendar = new CalendarYvv('#calendar');

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EventDto } from '../model/event';
 import { RestService } from '../rest.service';
 import { Router } from '@angular/router';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-add-event',
@@ -9,6 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-event.component.css']
 })
 export class AddEventComponent implements OnInit {
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+
 
   date: Date = {
     day: 0,
@@ -41,7 +45,9 @@ export class AddEventComponent implements OnInit {
     const hour = this.date.hour > 9 ? this.date.hour.toString() : '0' + this.date.hour;
     const minute = this.date.minute > 9 ? this.date.minute.toString() : '0' + this.date.minute;
     this.event.hora = `${hour}:${minute}`;
-    this.rest.addEvent(this.event).subscribe(() => this.router.navigateByUrl('/events'));
+    this.rest.addEvent(this.event).subscribe(
+      () => this.router.navigateByUrl('/events'),
+      error => {console.log(error); this.notification.show()});
   }
 
 }

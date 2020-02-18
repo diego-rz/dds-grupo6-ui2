@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Event } from '../model/event';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 import { Dressing } from '../model/dressing';
 import { ItemType } from '../model/itemType';
 import { Item } from '../model/item';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-event',
@@ -12,6 +13,9 @@ import { Item } from '../model/item';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+
   @Input() event: Event;
   dressingId: number;
   suggestions: Dressing[] = [];
@@ -28,7 +32,12 @@ export class EventComponent implements OnInit {
   }
 
   async setEventFromServer(eventId: number) {
-    this.event = await this.rest.getEvent(eventId).toPromise();
+    try {
+      this.event = await this.rest.getEvent(eventId).toPromise();
+    } catch(error) {
+      console.log(error);
+      this.notification.show();
+    }
     this.event.posiblesAtuendos = [this.getAtuendo()];
     this.event.atuendoElegido = this.getAtuendo();
   }
@@ -39,17 +48,21 @@ export class EventComponent implements OnInit {
 
   setEventDressing(dressingId: number) {
     this.rest.setEventDressing(this.event.id, dressingId).subscribe(
-      () => {
-        this.setEventFromServer(this.event.id);
-      }
+      () => this.setEventFromServer(this.event.id),
+      error => {console.log(error); this.notification.show()}
     )
   }
 
   async generateSuggestions() {
-    const closets = await this.rest.getClosets().toPromise();
-    for (const closet of closets) {
-      const suggestionsResponse = await this.rest.getEventSuggestions(closet.id, this.event.id).toPromise();
-      this.suggestions.push(suggestionsResponse);
+    try {
+      const closets = await this.rest.getClosets().toPromise();
+      for (const closet of closets) {
+        const suggestionsResponse = await this.rest.getEventSuggestions(closet.id, this.event.id).toPromise();
+        this.suggestions.push(suggestionsResponse);
+      }
+    } catch (error) {
+      console.log(error);
+      this.notification.show();
     }
   }
 
