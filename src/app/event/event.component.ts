@@ -14,6 +14,7 @@ import { Item } from '../model/item';
 export class EventComponent implements OnInit {
   @Input() event: Event;
   dressingId: number;
+  suggestions: Dressing[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -44,8 +45,12 @@ export class EventComponent implements OnInit {
     )
   }
 
-  generateSuggestions() {
-
+  async generateSuggestions() {
+    const closets = await this.rest.getClosets().toPromise();
+    for (const closet of closets) {
+      const suggestionsResponse = await this.rest.getEventSuggestions(closet.id, this.event.id).toPromise();
+      this.suggestions.push(suggestionsResponse);
+    }
   }
 
   viewItems(dressing: Dressing) {

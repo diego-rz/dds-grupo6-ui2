@@ -7,6 +7,7 @@ import { Item, ItemDto } from './model/item';
 import { Event, EventDto } from './model/event';
 import { RatingDto, ItemRating } from './model/rating';
 import { ItemType } from './model/itemType';
+import { Dressing } from './model/dressing';
 
 export const host = 'https://dds-2019-db.herokuapp.com/';
 // export const host = 'http://localhost:5000/';
@@ -96,6 +97,11 @@ export class RestService {
   setEventDressing(eventId: number, atuendoId: number) {
     const body = {eventoid: eventId, atuendoid: atuendoId};
     return this.httpRequest('POST', 'elegir', null, body);
+  }
+  getEventSuggestions(closetId: number, eventId: number): Observable<Dressing> {
+    const closetIdParam = {key: 'guardarropa', value: closetId.toString()} as QueryParam;
+    const eventIdParam = {key: 'evento', value: eventId.toString()} as QueryParam;
+    return this.httpRequest<Dressing>('GET', 'atuendos', [closetIdParam, eventIdParam]);
   }
 
   //PRENDAS
