@@ -67,4 +67,8 @@ export class EventsComponent implements AfterViewInit {
     );
   }
 
+  isValidDate(d: Date): boolean {
+    return d instanceof Date && !isNaN(d.getTime());
+  }
+
 }

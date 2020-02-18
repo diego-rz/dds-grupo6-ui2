@@ -9,7 +9,7 @@
             <div class="row no-gutters align-item-center text-primary">
               <div class="col mr-2">
                 <ul class="list-unstyled" style="margin: 0">
-                  <li>{{event.ciudad | cities}}</li>
+                  <li *ngIf="event.ciudad">{{event.ciudad | cities}}</li>
                 </ul>
               </div>
               <div class="col-auto">
@@ -25,7 +25,7 @@
             <div class="row no-gutters align-item-center text-success">
               <div class="col mr-2">
                 <ul class="list-unstyled" style="margin: 0">
-                  <li>{{event.fecha | date:'fullDate'}}</li>
+                  <li *ngIf="event.fecha">{{event.fecha | date:'fullDate'}}</li>
                 </ul>
               </div>
               <div class="col-auto">
