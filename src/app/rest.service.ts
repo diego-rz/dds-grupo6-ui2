@@ -7,7 +7,7 @@ import { Item, ItemDto } from './model/item';
 import { Event, EventDto } from './model/event';
 import { RatingDto, ItemRating } from './model/rating';
 import { ItemType } from './model/itemType';
-import { Dressing } from './model/dressing';
+import { Dressing, DressingRatingDto } from './model/dressing';
 
 export const host = 'https://dds-2019-db.herokuapp.com/';
 // export const host = 'http://localhost:5000/';
@@ -135,17 +135,15 @@ export class RestService {
   addItemRating(rating: RatingDto) {
     return this.httpRequest('POST', 'puntajes', null, rating);
   }
-  getDressingRatings() {
-    // return this.httpRequest('GET', 'puntajes');
-    return of([]);
+  getDressingRatings(): Observable<Dressing[]> {
+    return this.httpRequest<Dressing[]>('GET', 'calificaciones');
   }
   getDressingRating(ratingId: number) {
     // return this.httpRequest('GET', 'puntajes/' + ratingId);
     return of({});
   }
-  addDressingRating(rating: RatingDto) {
-    // return this.httpRequest('POST', 'puntajes', null, rating);
-    return of({});
+  addDressingRating(dressingDto: DressingRatingDto): Observable<Dressing> {
+    return this.httpRequest<Dressing>('POST', 'calificaciones', null, dressingDto);
   }
 
   // TIPO PRENDA

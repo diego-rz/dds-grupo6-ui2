@@ -28,7 +28,7 @@ export class RateModalComponent implements OnInit {
           )
           break;
           case 'DRESSING':
-            this.rest.addDressingRating({prendaid: this.id, puntaje: rating}).subscribe(
+            this.rest.addDressingRating({atuendoID: this.id, calificacion: rating}).subscribe(
               () => {},
               error => console.log(error),
               () => {this.finish.emit('DRESSING')}
