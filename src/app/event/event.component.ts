@@ -6,6 +6,7 @@ import { Dressing } from '../model/dressing';
 import { ItemType } from '../model/itemType';
 import { Item } from '../model/item';
 import { NotificationComponent } from '../notification/notification.component';
+import { Closet } from '../model/closet';
 
 @Component({
   selector: 'app-event',
@@ -18,7 +19,8 @@ export class EventComponent implements OnInit {
 
   @Input() event: Event;
   dressingId: number;
-  suggestions: Dressing[] = [];
+  closets: Closet[];
+  closetIdSelected: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +31,16 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     const eventId = +this.route.snapshot.paramMap.get('id');
     this.setEventFromServer(eventId);
+    this.setClosetsFromServer();
+  }
+
+  async setClosetsFromServer() {
+    try {
+      this.closets = await this.rest.getClosets().toPromise();
+    } catch (error) {
+      console.log(error);
+      this.notification.show();
+    }
   }
 
   async setEventFromServer(eventId: number) {
@@ -38,8 +50,6 @@ export class EventComponent implements OnInit {
       console.log(error);
       this.notification.show();
     }
-    this.event.posiblesAtuendos = [this.getAtuendo()];
-    this.event.atuendoElegido = this.getAtuendo();
   }
 
   setDressingId(dressingId: number) {
@@ -55,11 +65,18 @@ export class EventComponent implements OnInit {
 
   async generateSuggestions() {
     try {
-      const closets = await this.rest.getClosets().toPromise();
-      for (const closet of closets) {
-        const suggestionsResponse = await this.rest.getEventSuggestions(closet.id, this.event.id).toPromise();
-        this.suggestions.push(suggestionsResponse);
-      }
+      const suggestionsResponse = await this.rest.getEventSuggestions(this.closetIdSelected, this.event.id).toPromise();
+      this.event.posiblesAtuendos = this.event.posiblesAtuendos.concat(suggestionsResponse.posiblesAtuendos);
+    } catch (error) {
+      console.log(error);
+      this.notification.show();
+    }
+  }
+
+  async deleteSuggestions() {
+    try {
+      const response = await this.rest.deleteEventSuggestions(this.event.id).toPromise();
+      this.event = response;
     } catch (error) {
       console.log(error);
       this.notification.show();
@@ -68,68 +85,6 @@ export class EventComponent implements OnInit {
 
   viewItems(dressing: Dressing) {
     this.router.navigateByUrl('closets/items', {state: {data: {dressing}}});
-  }
-
-  private getAtuendo(): Dressing {
-    const tipoRemera: ItemType = {
-      id: 1,
-      nombre: 'Remera corta',
-      categoria: {id:1, nombre: 'Superior'},
-      nivelDeCalor: 10,
-      codigo: 'asdf',
-      materialesPermitidos:[]
-    }
-    const remera: Item = {
-      id: 1,
-      nombre: 'Remera negra',
-      tipoPrenda: tipoRemera,
-      material: {id: 1, nombre: 'Algodon'},
-      colorPrimario: 'Black',
-      categoria: {id: 2, nombre: 'Superior'}
-    }
-
-    const tipoBermuda: ItemType = {
-      id: 2,
-      nombre: 'Bermuda',
-      categoria: {id:1, nombre: 'Inferior'},
-      nivelDeCalor: 15,
-      codigo: 'asdf',
-      materialesPermitidos:[]
-    }
-    const bermuda: Item = {
-      id: 2,
-      nombre: 'Bermuda gris',
-      tipoPrenda: tipoBermuda,
-      material: {id: 1, nombre: 'Algodon'},
-      colorPrimario: 'Gray',
-      categoria: {id: 2, nombre: 'Inferior'}
-    }
-
-    const tipoZapatilla: ItemType = {
-      id: 3,
-      nombre: 'Zapatilla',
-      categoria: {id:1, nombre: 'Calzado'},
-      nivelDeCalor: 20,
-      codigo: 'asdf',
-      materialesPermitidos:[]
-    }
-    const zapatillas: Item = {
-      id: 3,
-      nombre: 'Zapatillas negras',
-      tipoPrenda: tipoZapatilla,
-      material: {id: 1, nombre: 'Lona'},
-      colorPrimario: 'Black',
-      categoria: {id: 2, nombre: 'Calzado'}
-    }
-
-    const atuendo: Dressing = {
-      id: 1,
-      nombre: 'Casual',
-      prendaSuperior: remera,
-      prendaInferior: bermuda,
-      prendaCalzado: zapatillas
-    }
-    return atuendo;
   }
 
 }
