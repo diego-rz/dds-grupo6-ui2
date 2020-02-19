@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../rest.service';
+import { Dressing } from '../model/dressing';
 
 @Component({
   selector: 'app-ratings',
@@ -8,30 +9,18 @@ import { RestService } from '../rest.service';
 })
 export class RatingsComponent implements OnInit {
   updated: number;
+  dressings: Dressing[];
 
-  dressings = [
-    {
-      id: 1,
-      nombre: 'Atuendo formal 1',
-      evento: {
-        nombre: 'Casamiento de pepe'
-      },
-      rate: 4
-    },
-    {
-      id: 2,
-      nombre: 'Atuendo casual 4',
-      evento: {
-        nombre: 'Cumpleaños de pepe'
-      },
-      rate: 3
-    }
-  ]
-
-
-  constructor() { }
+  constructor(
+    private rest: RestService
+  ) { }
 
   ngOnInit() {
+    this.setRatingsFromServer();
+  }
+
+  async setRatingsFromServer() {
+    this.dressings = await this.rest.getDressingRatings().toPromise();
   }
 
   setUpdated(dressingId: number) {

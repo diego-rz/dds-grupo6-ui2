@@ -7,7 +7,7 @@ import { Item, ItemDto } from './model/item';
 import { Event, EventDto } from './model/event';
 import { RatingDto, ItemRating } from './model/rating';
 import { ItemType } from './model/itemType';
-import { Dressing } from './model/dressing';
+import { Dressing, DressingRatingDto } from './model/dressing';
 
 export const host = 'https://dds-2019-db.herokuapp.com/';
 // export const host = 'http://localhost:5000/';
@@ -59,7 +59,7 @@ export class RestService {
   joinQueryParams(queryParams: QueryParam[]): string {
     let params = '';
     if (queryParams && queryParams.length > 0) {
-      params = queryParams
+      params = '?' + queryParams
         .map(element => element.key + "=" + element.value)
         .join('&');
     }
@@ -94,14 +94,18 @@ export class RestService {
   deleteEvent(eventId: number) {
     return this.httpRequest('DELETE', 'eventos/' + eventId);
   }
-  setEventDressing(eventId: number, atuendoId: number) {
+  setEventDressing(eventId: number, atuendoId: number): Observable<Event> {
     const body = {eventoid: eventId, atuendoid: atuendoId};
-    return this.httpRequest('POST', 'elegir', null, body);
+    return this.httpRequest<Event>('POST', 'elegir', null, body);
   }
-  getEventSuggestions(closetId: number, eventId: number): Observable<Dressing> {
+  getEventSuggestions(closetId: number, eventId: number): Observable<Event> {
     const closetIdParam = {key: 'guardarropa', value: closetId.toString()} as QueryParam;
     const eventIdParam = {key: 'evento', value: eventId.toString()} as QueryParam;
-    return this.httpRequest<Dressing>('GET', 'atuendos', [closetIdParam, eventIdParam]);
+    return this.httpRequest<Event>('GET', 'atuendos', [closetIdParam, eventIdParam]);
+  }
+  deleteEventSuggestions(eventId: number): Observable<Event> {
+    const eventIdParam = {key: 'evento', value: eventId.toString()} as QueryParam;
+    return this.httpRequest<Event>('DELETE', 'atuendos', [eventIdParam]);
   }
 
   //PRENDAS
@@ -131,17 +135,15 @@ export class RestService {
   addItemRating(rating: RatingDto) {
     return this.httpRequest('POST', 'puntajes', null, rating);
   }
-  getDressingRatings() {
-    // return this.httpRequest('GET', 'puntajes');
-    return of([]);
+  getDressingRatings(): Observable<Dressing[]> {
+    return this.httpRequest<Dressing[]>('GET', 'calificaciones');
   }
   getDressingRating(ratingId: number) {
     // return this.httpRequest('GET', 'puntajes/' + ratingId);
     return of({});
   }
-  addDressingRating(rating: RatingDto) {
-    // return this.httpRequest('POST', 'puntajes', null, rating);
-    return of({});
+  addDressingRating(dressingDto: DressingRatingDto): Observable<Dressing> {
+    return this.httpRequest<Dressing>('POST', 'calificaciones', null, dressingDto);
   }
 
   // TIPO PRENDA

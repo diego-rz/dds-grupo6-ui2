@@ -9,3 +9,8 @@ export class Dressing extends IdName{
   abrigoPesado?: Item;
   prendaAccesorio?: Item;
 }
+
+export class DressingRatingDto {
+  atuendoID: number;
+  calificacion: number
+}
