@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Dressing } from '../model/dressing';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-ratings',
@@ -8,6 +9,10 @@ import { Dressing } from '../model/dressing';
   styleUrls: ['./ratings.component.css']
 })
 export class RatingsComponent implements OnInit {
+  @ViewChild(NotificationComponent, {static: false})
+  notification: NotificationComponent
+  ready = false;
+
   updated: number;
   dressings: Dressing[];
 
@@ -20,7 +25,13 @@ export class RatingsComponent implements OnInit {
   }
 
   async setRatingsFromServer() {
-    this.dressings = await this.rest.getDressingRatings().toPromise();
+    try {
+      this.dressings = await this.rest.getDressingRatings().toPromise();
+    } catch (error) {
+      console.log(error);
+      this.notification.show();
+    }
+    this.ready = true;
   }
 
   setUpdated(dressingId: number) {

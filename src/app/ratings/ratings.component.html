@@ -1,9 +1,14 @@
+<app-notification></app-notification>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
   <!-- Begin Page Content -->
   <div class="container-fluid">
     <div class="card card-body">
-      <div class="table-responsive col-sm-12">
+      <div *ngIf="!ready" class="text-center p-5">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        </div>
+      </div>
+      <div *ngIf="ready" class="table-responsive col-sm-12">
         <table class="table dataTable">
           <thead>
             <tr role="row">
