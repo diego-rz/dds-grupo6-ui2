@@ -85,7 +85,7 @@
         </select>
       </div>
       <div class="col-4">
-        <button class="btn btn-primary" (click)="generateSuggestions()">Generar</button>
+        <button class="btn btn-primary" [disabled]="!closetIdSelected" (click)="generateSuggestions()">Generar</button>
         <button class="btn btn-danger" (click)="deleteSuggestions()">Eliminar sugerencias</button>
       </div>
     </div>
@@ -97,7 +97,11 @@
             <th> </th>
           </tr>
         </thead>
-        <tbody>
+        <div *ngIf="isGenerating" class="text-center p-5">
+          <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+          </div>
+        </div>
+        <tbody *ngIf="!isGenerating">
           <tr role="row" *ngFor="let suggest of event.posiblesAtuendos; index as i">
             <td>{{i+1}}</td>
             <td>

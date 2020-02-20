@@ -14,6 +14,7 @@ import { NotificationComponent } from '../notification/notification.component';
 export class ItemsComponent implements OnInit, AfterViewInit {
   @ViewChild(NotificationComponent, {static: false})
   notification: NotificationComponent
+  ready = false;
 
   @Input() items: Item[];
   itemRatings: ItemRating[];
@@ -64,6 +65,7 @@ export class ItemsComponent implements OnInit, AfterViewInit {
     } catch (error) {
       this.notification.show();
     }
+    this.ready = true;
   }
 
   async setItems() {

@@ -3,8 +3,6 @@ import { Event } from '../model/event';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 import { Dressing } from '../model/dressing';
-import { ItemType } from '../model/itemType';
-import { Item } from '../model/item';
 import { NotificationComponent } from '../notification/notification.component';
 import { Closet } from '../model/closet';
 
@@ -21,6 +19,7 @@ export class EventComponent implements OnInit {
   dressingId: number;
   closets: Closet[];
   closetIdSelected: number;
+  isGenerating = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +63,7 @@ export class EventComponent implements OnInit {
   }
 
   async generateSuggestions() {
+    this.isGenerating = true;
     try {
       const suggestionsResponse = await this.rest.getEventSuggestions(this.closetIdSelected, this.event.id).toPromise();
       this.event.posiblesAtuendos = this.event.posiblesAtuendos.concat(suggestionsResponse.posiblesAtuendos);
@@ -71,6 +71,7 @@ export class EventComponent implements OnInit {
       console.log(error);
       this.notification.show();
     }
+    this.isGenerating = false;
   }
 
   async deleteSuggestions() {

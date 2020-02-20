@@ -12,6 +12,7 @@ import { NotificationComponent } from '../notification/notification.component';
 export class EventsComponent implements AfterViewInit {
   @ViewChild(NotificationComponent, {static: false})
   notification: NotificationComponent
+  ready = false;
 
   events: Event[];
   deleteId: number;
@@ -35,7 +36,8 @@ export class EventsComponent implements AfterViewInit {
       calendar.diasResal = this.getDiasResal(calendar);
       calendar.createCalendar();
     },
-    error => {console.log(error); this.notification.show()});
+    error => {console.log(error); this.notification.show()},
+    () => this.ready = true);
   }
 
   getDiasResal(ev: CalendarYvv): number[] {

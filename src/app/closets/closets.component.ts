@@ -12,6 +12,7 @@ import { NotificationComponent } from '../notification/notification.component';
 export class ClosetsComponent implements AfterViewInit {
   @ViewChild(NotificationComponent, {static: false})
   notification: NotificationComponent
+  ready = false;
 
   closets: Closet[];
   deleteId: number;
@@ -23,7 +24,8 @@ export class ClosetsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.rest.getClosets().subscribe(closets => this.closets = closets,
-      error => {console.log(error); this.notification.show()}
+      error => {console.log(error); this.notification.show()},
+      () => this.ready = true
     );
   }
 
