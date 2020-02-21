@@ -100,10 +100,10 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   async deleteItem() {
     try {
       await this.rest.deleteItem(this.deletedItem.id).toPromise();
-      this.getDataFromServer();
     } catch (error) {
       this.notification.show();
     }
+    this.getDataFromServer();
   }
 
   setModalItemId(itemId: number) {

@@ -65,6 +65,7 @@ export class EventComponent implements OnInit {
   async generateSuggestions() {
     this.isGenerating = true;
     try {
+      this.deleteSuggestions();
       const suggestionsResponse = await this.rest.getEventSuggestions(this.closetIdSelected, this.event.id).toPromise();
       this.event.posiblesAtuendos = this.event.posiblesAtuendos.concat(suggestionsResponse.posiblesAtuendos);
     } catch (error) {
