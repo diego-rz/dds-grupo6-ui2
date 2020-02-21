@@ -55,36 +55,35 @@
 		</div>
 		<h4>Próximos eventos</h4>
 		<div class="card">
-			<div class="table-responsive col-sm-12">
-				<table class="table dataTable">
-					<thead>
-						<tr role="row">
-							<th>Nombre</th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr role="row">
-							<td>Trabajo</td>
-							<td>Viernes 09:00</td>
-							<td>
-								<a class="btn btn-primary" href="informacionEvento.html">
-									<span class="text">Ver</span>
-								</a>
-							</td>
-						</tr>
-						<tr role="row">
-							<td>Cine</td>
-							<td>Viernes 21:00</td>
-							<td>
-								<a class="btn btn-primary" href="#">
-									<span class="text">Ver</span>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+
+      <div *ngIf="!ready" class="text-center p-5">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        </div>
+      </div>
+      <div *ngIf="ready" class="table-responsive col-sm-12">
+        <table class="table dataTable">
+          <thead>
+            <tr role="row">
+              <th>Nombre</th>
+              <th class="d-none d-sm-table-cell">Lugar</th>
+              <th class="d-none d-sm-table-cell">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Fila evento-->
+            <tr *ngFor="let event of events" role="row">
+              <td>{{event.nombre}}</td>
+              <td class="d-none d-sm-table-cell">
+                <span *ngIf="event.ciudad">{{event.ciudad | cities}}</span>
+                <span *ngIf="!event.ciudad">-</span>
+              </td>
+              <td class="d-none d-sm-table-cell">
+                <span *ngIf="isValidDate(event.fecha)">{{event.fecha | date}}</span>
+                <span *ngIf="!isValidDate(event.fecha)">-</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 		</div>
 	</div>
