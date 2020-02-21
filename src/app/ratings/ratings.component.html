@@ -12,8 +12,7 @@
         <table class="table dataTable">
           <thead>
             <tr role="row">
-              <th>Nombre</th>
-              <th>Evento</th>
+              <th>Atuendo</th>
               <th>Calificación</th>
               <th> </th>
             </tr>
@@ -21,13 +20,42 @@
           <tbody>
             <!-- Inicio de registro -->
             <tr role="row" *ngFor="let dressing of dressings">
-              <td>{{dressing.nombre}}</td>
-              <td>{{dressing.evento.nombre}}</td>
-              <td>{{dressing.rate}}</td>
+              <td>
+                <ul>
+                  <li>
+                    <span *ngIf="dressing.prendaSuperior">{{dressing.prendaSuperior.nombre}}</span>
+                    <span *ngIf="!dressing.prendaSuperior">-</span>
+                  </li>
+                  <li>
+                    <span *ngIf="dressing.prendaInferior">{{dressing.prendaInferior.nombre}}</span>
+                    <span *ngIf="!dressing.prendaInferior">-</span>
+                  </li>
+                  <li>
+                    <span *ngIf="dressing.prendaCalzado">{{dressing.prendaCalzado.nombre}}</span>
+                    <span *ngIf="!dressing.prendaCalzado">-</span>
+                  </li>
+                  <li>
+                    <span *ngIf="dressing.abrigoLigero">{{dressing.abrigoLigero.nombre}}</span>
+                    <span *ngIf="!dressing.abrigoLigero">-</span>
+                  </li>
+                  <li>
+                    <span *ngIf="dressing.abrigoPesado">{{dressing.abrigoPesado.nombre}}</span>
+                    <span *ngIf="!dressing.abrigoPesado">-</span>
+                  </li>
+                  <li>
+                    <span *ngIf="dressing.prendaAccesorio">{{dressing.prendaAccesorio.nombre}}</span>
+                    <span *ngIf="!dressing.prendaAccesorio">-</span>
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <span *ngIf="dressing.calificacion">{{dressing.calificacion}}</span>
+                <span *ngIf="!dressing.calificacion">-</span>
+              </td>
               <td>
                 <button class="btn btn-primary" data-toggle="modal" (click)="setUpdated(dressing.id)" data-target="#modalRating">
-                  <span *ngIf="dressing.rate" class="text">Modificar</span>
-                  <span *ngIf="!dressing.rate" class="text">Calificar</span>
+                  <span *ngIf="dressing.calificacion" class="text">Modificar</span>
+                  <span *ngIf="!dressing.calificacion" class="text">Calificar</span>
                 </button>
               </td>
             </tr>

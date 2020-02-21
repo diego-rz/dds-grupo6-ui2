@@ -10,12 +10,6 @@ export class Event extends IdName{
   temperatura: number;
   usuario: User;
   fecha: Date
-
-  static citiesMap: Map<number, string> = new Map<number, string>([
-    [10, 'Buenos Aires'],
-    [14, 'Ezeiza']
-  ]);
-
 }
 
 export class EventDto {

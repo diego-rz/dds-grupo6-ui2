@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit {
     this.ready = true;
   }
 
-  isValidDate(d: Date): boolean {
-    return d instanceof Date && !isNaN(d.getTime());
+  isValidDate(d: string): boolean {
+    return Date.parse(d) !== null;
   }
 
 }

@@ -60,7 +60,32 @@
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <h5>{{event.atuendoElegido.nombre}}</h5>
+              <ul>
+                <li>
+                  <span *ngIf="event.atuendoElegido.prendaSuperior">{{event.atuendoElegido.prendaSuperior.nombre}}</span>
+                  <span *ngIf="!event.atuendoElegido.prendaSuperior">-</span>
+                </li>
+                <li>
+                  <span *ngIf="event.atuendoElegido.prendaInferior">{{event.atuendoElegido.prendaInferior.nombre}}</span>
+                  <span *ngIf="!event.atuendoElegido.prendaInferior">-</span>
+                </li>
+                <li>
+                  <span *ngIf="event.atuendoElegido.prendaCalzado">{{event.atuendoElegido.prendaCalzado.nombre}}</span>
+                  <span *ngIf="!event.atuendoElegido.prendaCalzado">-</span>
+                </li>
+                <li>
+                  <span *ngIf="event.atuendoElegido.abrigoLigero">{{event.atuendoElegido.abrigoLigero.nombre}}</span>
+                  <span *ngIf="!event.atuendoElegido.abrigoLigero">-</span>
+                </li>
+                <li>
+                  <span *ngIf="event.atuendoElegido.abrigoPesado">{{event.atuendoElegido.abrigoPesado.nombre}}</span>
+                  <span *ngIf="!event.atuendoElegido.abrigoPesado">-</span>
+                </li>
+                <li>
+                  <span *ngIf="event.atuendoElegido.prendaAccesorio">{{event.atuendoElegido.prendaAccesorio.nombre}}</span>
+                  <span *ngIf="!event.atuendoElegido.prendaAccesorio">-</span>
+                </li>
+              </ul>
             </div>
             <div class="col-auto">
               <button class="btn btn-primary" (click)="viewItems(event.atuendoElegido)">
@@ -103,7 +128,35 @@
         </div>
         <tbody *ngIf="!isGenerating">
           <tr role="row" *ngFor="let suggest of event.posiblesAtuendos; index as i">
-            <td>{{i+1}}</td>
+            <td>{{i+1}}
+              <ul>
+                <li>
+                  <span *ngIf="suggest.prendaSuperior">{{suggest.prendaSuperior.nombre}}</span>
+                  <span *ngIf="!suggest.prendaSuperior">-</span>
+                </li>
+                <li>
+                  <span *ngIf="suggest.prendaInferior">{{suggest.prendaInferior.nombre}}</span>
+                  <span *ngIf="!suggest.prendaInferior">-</span>
+                </li>
+                <li>
+                  <span *ngIf="suggest.prendaCalzado">{{suggest.prendaCalzado.nombre}}</span>
+                  <span *ngIf="!suggest.prendaCalzado">-</span>
+                </li>
+                <li>
+                  <span *ngIf="suggest.abrigoLigero">{{suggest.abrigoLigero.nombre}}</span>
+                  <span *ngIf="!suggest.abrigoLigero">-</span>
+                </li>
+                <li>
+                  <span *ngIf="suggest.abrigoPesado">{{suggest.abrigoPesado.nombre}}</span>
+                  <span *ngIf="!suggest.abrigoPesado">-</span>
+                </li>
+                <li>
+                  <span *ngIf="suggest.prendaAccesorio">{{suggest.prendaAccesorio.nombre}}</span>
+                  <span *ngIf="!suggest.prendaAccesorio">-</span>
+                </li>
+              </ul>
+
+            </td>
             <td>
               <button class="btn btn-primary m-1" (click)="viewItems(suggest)">
                 <span class="text">Ver</span>

@@ -8,6 +8,8 @@ export class Dressing extends IdName{
   abrigoLigero?: Item;
   abrigoPesado?: Item;
   prendaAccesorio?: Item;
+  calificacion?: number;
+  nivelDeCalor?: number;
 }
 
 export class DressingRatingDto {
