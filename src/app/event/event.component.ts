@@ -66,7 +66,8 @@ export class EventComponent implements OnInit {
     this.isGenerating = true;
     try {
       const suggestionsResponse = await this.rest.getEventSuggestions(this.closetIdSelected, this.event.id).toPromise();
-      this.event.posiblesAtuendos = this.event.posiblesAtuendos.concat(suggestionsResponse.posiblesAtuendos);
+      this.event.posiblesAtuendos = suggestionsResponse.posiblesAtuendos;
+      this.event.temperatura = suggestionsResponse.temperatura;
     } catch (error) {
       console.log(error);
       this.notification.show();
