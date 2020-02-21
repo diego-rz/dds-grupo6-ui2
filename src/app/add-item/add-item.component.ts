@@ -124,7 +124,7 @@ export class AddItemComponent implements OnInit{
     if (!value) {
       return value;
     }
-    return value.substring(1,3) + '|' + value.substring(3,5) + '|' + value.substring(5,7);
+    return value.substring(1,3) + '|' + value.substring(3,5) + '|' + value.substring(5,7) + '|1';
   }
 
 }

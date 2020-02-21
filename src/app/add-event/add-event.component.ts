@@ -39,15 +39,29 @@ export class AddEventComponent implements OnInit {
   }
 
   send() {
-    const day = this.date.day > 9 ? this.date.day.toString() : '0' + this.date.day;
-    const month = this.date.month > 9 ? this.date.month.toString() : '0' + this.date.month;
+    const day = this.fillWith0(this.date.day.toString());
+    const month = this.fillWith0(this.date.month.toString());
     this.event.fecha = `${this.date.year}-${month}-${day}`;
-    const hour = this.date.hour > 9 ? this.date.hour.toString() : '0' + this.date.hour;
-    const minute = this.date.minute > 9 ? this.date.minute.toString() : '0' + this.date.minute;
+
+    const hour = this.fillWith0(this.date.hour.toString());
+    const minute = this.fillWith0(this.date.minute.toString());
     this.event.hora = `${hour}:${minute}`;
     this.rest.addEvent(this.event).subscribe(
       () => this.router.navigateByUrl('/events'),
       error => {console.log(error); this.notification.show()});
+  }
+
+  fillWith0(value: string): string {
+    switch (value.length) {
+      case 0:
+        return '00';
+      case 1:
+        return '0'+value;
+      case 2:
+        return value;
+      default:
+        return '00';
+    }
   }
 
 }
