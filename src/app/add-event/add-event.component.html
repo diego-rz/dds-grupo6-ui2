@@ -15,9 +15,7 @@
           </select>
           Ciudad
           <select class="form-control" name="type" [(ngModel)]="event.ciudad">
-            <option value="10">Buenos Aires</option>
-            <option value="11">Ezeiza</option>
-            <option value="12">La Plata</option>
+            <option *ngFor="let city of cities" value="city.id">{{ city.name }}</option>
           </select>
 
           <div *ngIf="event.tipo === 'SIMPLE'">

@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Event } from './model/event';
+import { CityFactory } from 'src/ciudades';
 
 @Pipe({
   name: 'cities'
@@ -7,7 +8,8 @@ import { Event } from './model/event';
 export class CitiesPipe implements PipeTransform {
 
   transform(value: number): string | number {
-    return Event.citiesMap.has(value) ? Event.citiesMap.get(value) : value;
+    const city = CityFactory.getData().find(city => city.id === value);
+    return city ? city.name : value;
   }
 
 }

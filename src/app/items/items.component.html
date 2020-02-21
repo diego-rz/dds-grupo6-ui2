@@ -31,9 +31,10 @@
               <td style="cursor: pointer;">
                 <img src="https://ddsgrupo6.000webhostapp.com/img/{{itemWithRate.item.id}}.jpg"
                   onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Imagen_no_disponible.svg/768px-Imagen_no_disponible.svg.png'"
-                  class="img-fluid img-thumbnail"
+                  class="img-thumbnail"
                   data-toggle="modal"
                   data-target="#itemImageModal"
+                  width="200px" height="200px"
                   (click)="setModalItemId(itemWithRate.item.id)">
 
                 <div class="modal fade" id="itemImageModal" tabindex="-1" role="dialog" aria-labelledby="itemImageModalLabel" aria-hidden="true">

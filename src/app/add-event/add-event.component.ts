@@ -3,6 +3,7 @@ import { EventDto } from '../model/event';
 import { RestService } from '../rest.service';
 import { Router } from '@angular/router';
 import { NotificationComponent } from '../notification/notification.component';
+import { City, CityFactory } from 'src/ciudades';
 
 @Component({
   selector: 'app-add-event',
@@ -11,8 +12,8 @@ import { NotificationComponent } from '../notification/notification.component';
 })
 export class AddEventComponent implements OnInit {
   @ViewChild(NotificationComponent, {static: false})
-  notification: NotificationComponent
-
+  notification: NotificationComponent;
+  cities: City[];
 
   date: Date = {
     day: 0,
@@ -36,6 +37,7 @@ export class AddEventComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.cities = CityFactory.getData();
   }
 
   send() {
