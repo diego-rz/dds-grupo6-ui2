@@ -4,7 +4,6 @@
 
     <div class="table-responsive col-sm-12">
       <!-- INICIO WIZARD -->
-
       <div class="wrapper">
         <h3>Alta de Prenda</h3>
         <form action="" id="wizard">
@@ -17,7 +16,7 @@
                 </label>
                 <div class="form-holder">
                   <i class="zmdi zmdi-account-o"></i>
-                  <select class="form-control" [(ngModel)]="itemDto.tipoPrendaID" name="tipoPrenda">
+                  <select class="form-control" (click)="setAllowedMaterials()" [(ngModel)]="itemDto.tipoPrendaID" name="tipoPrenda">
                     <option (click)="setAllowedMaterials()" *ngFor="let itemType of itemTypes" [value]="itemType.id">
                       {{itemType.nombre}}</option>
                   </select>
