@@ -31,7 +31,7 @@
                 <a (click)="viewItems(closet)" class="text"><button class="btn btn-primary">
                     <span class="text">Prendas</span>
                   </button></a>
-                <button class="btn btn-danger" data-toggle="modal" (click)="setDeleteId(closet.id)" data-target="#modalEliminarGuardarropa1">
+                <button class="btn btn-danger" [disabled]="closets.length === 1" data-toggle="modal" (click)="setDeleteId(closet.id)" data-target="#modalEliminarGuardarropa1">
                   <span class="text">Eliminar</span>
                 </button>
               </td>
