@@ -89,6 +89,9 @@ export class EventComponent implements OnInit {
       this.event.temperatura = suggestionsResponse.temperatura;
     } catch (error) {
       console.log(error);
+      if (error && error.error){
+        this.notification.text = error.error.error
+      }
       this.notification.show();
     }
     this.isGenerating = false;

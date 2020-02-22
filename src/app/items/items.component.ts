@@ -69,9 +69,7 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   }
 
   async setItems() {
-    if(!this.items) {
       this.items = await this.rest.getItems().toPromise();
-    }
   }
 
   async setItemRatings() {
