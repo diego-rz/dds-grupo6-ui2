@@ -28,9 +28,27 @@ export class EventComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.setData();
+  }
+
+  async setData() {
     const eventId = +this.route.snapshot.paramMap.get('id');
-    this.setEventFromServer(eventId);
-    this.setClosetsFromServer();
+    await this.setEventFromServer(eventId);
+    await this.setClosetsFromServer();
+    this.generateIfInNext4();
+  }
+
+  generateIfInNext4() {
+    if (this.event.posiblesAtuendos.length > 0) {
+      return;
+    }
+    let next4 = new Date();
+    next4.setDate(next4.getDate() + 4);
+    const eventDate = new Date(this.event.fecha);
+    if (next4.getTime() > eventDate.getTime() && this.closets && this.closets.length > 0) {
+      this.closetIdSelected = this.closets[0].id;
+      this.generateSuggestions();
+    }
   }
 
   async setClosetsFromServer() {
