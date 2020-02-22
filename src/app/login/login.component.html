@@ -1,28 +1,27 @@
-<div class="login-box">
-  <img src="img/captura.PNG" class="avatar" alt="Avatar Image">
-  <h1>Que me Pongo?</h1>
-  <form action="">
+<div id="login-container">
+  <div class="login-box">
+    <h1>Que me Pongo?</h1>
+    <form action="">
 
-    <label for="username">Nombre de usuario</label>
-    <input [(ngModel)]="username" type="text" [ngModelOptions]="{standalone: true}">
+      <label for="username">Nombre de usuario</label>
+      <input [(ngModel)]="username" type="text" [ngModelOptions]="{standalone: true}">
 
-    <label for="password">Contraseña</label>
-    <input [(ngModel)]="password" type="password" [ngModelOptions]="{standalone: true}">
+      <label for="password">Contraseña</label>
+      <input [(ngModel)]="password" type="password" [ngModelOptions]="{standalone: true}">
 
-    <button class="btn btn-danger btn-lg btn-block rounded-pill" (click)="login()" type="submit">
-      <span *ngIf="!loading">Ingresar</span>
-      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-    </button>
-    <small><a href="#">¿Olvidó su contraseña?</a></small>
-    <small><a href="#">Registrarse</a></small>
+      <button class="btn btn-danger btn-lg btn-block rounded-pill" (click)="login()" type="submit">
+        <span *ngIf="!loading">Ingresar</span>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
 
-    </form>
-    <div *ngIf="!loginSuccess" class="alert alert-danger" role="alert">
-      <span *ngIf="invalidCredentials">
-        Credenciales inválidas
-      </span>
-      <span *ngIf="!invalidCredentials">
-        Ha ocurrido un error, por favor vuelva a intentar
-      </span>
-    </div>
+      </form>
+      <div *ngIf="!loginSuccess" class="alert alert-danger" role="alert">
+        <span *ngIf="invalidCredentials">
+          Credenciales inválidas
+        </span>
+        <span *ngIf="!invalidCredentials">
+          Ha ocurrido un error, por favor vuelva a intentar
+        </span>
+      </div>
+  </div>
 </div>
