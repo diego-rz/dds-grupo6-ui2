@@ -69,7 +69,9 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   }
 
   async setItems() {
+    if (!this.items) {
       this.items = await this.rest.getItems().toPromise();
+    }
   }
 
   async setItemRatings() {
@@ -98,10 +100,11 @@ export class ItemsComponent implements OnInit, AfterViewInit {
   async deleteItem() {
     try {
       await this.rest.deleteItem(this.deletedItem.id).toPromise();
+      this.items = this.items.filter(item => item.id !== this.deletedItem.id);
+      this.itemsWithRatings = this.itemsWithRatings.filter(item => item.item.id !== this.deletedItem.id);
     } catch (error) {
       this.notification.show();
     }
-    this.getDataFromServer();
   }
 
   setModalItemId(itemId: number) {

@@ -111,7 +111,13 @@ export class AddItemComponent implements OnInit{
           console.log("Invalid item response");
         }
       },
-      error => {console.log(error); this.notification.show()}
+      error => {
+        if (error && error.error){
+          this.notification.text = error.error.error
+        }
+        console.log(error);
+        this.notification.show()
+      }
     )
   }
 
