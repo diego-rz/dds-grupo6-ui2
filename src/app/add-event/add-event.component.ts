@@ -66,6 +66,11 @@ export class AddEventComponent implements OnInit {
     }
   }
 
+  isValid() {
+    return this.event.nombre && this.event.tipo && this.event.ciudad &&
+            this.date.year && this.date.month && this.date.day
+  }
+
 }
 
 export class Address {

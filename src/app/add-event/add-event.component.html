@@ -6,12 +6,12 @@
         <h4>Información</h4>
         <div class="form-group">
           Nombre
-          <input type="text" class="form-control" name="name" [(ngModel)]="event.nombre" placeholder="ej. Cumpleaños de Jaime">
+          <input type="text" class="form-control" required name="name" [(ngModel)]="event.nombre" placeholder="ej. Cumpleaños de Jaime">
           <small class="form-text text-muted">Este será el nombre</small>
           Tipo
           <select class="form-control" name="type" [(ngModel)]="event.tipo">
             <option value="SIMPLE">Único</option>
-            <option value="PERIODICO">Periódico</option>
+            <option disabled value="PERIODICO">Periódico</option>
           </select>
           Ciudad
           <select class="form-control" name="type" [(ngModel)]="event.ciudad">
@@ -44,7 +44,7 @@
               </div>
               <div class="col-md-2">
                 <label for="year">Año</label>
-                <input type="number" max="2099" min="2000" class="form-control" name="year" [(ngModel)]="date.year">
+                <input type="number" max="2099" min="2020" class="form-control" name="year" [(ngModel)]="date.year">
               </div>
               <div class="col-md-1">
                 <label for="hour">Hora</label>
@@ -84,7 +84,7 @@
         </div>
         <input type="hidden" name="token" id="tokenInput">
         <div class="form-group">
-          <button type="submit" (click)="send()" class="btn btn-primary">Guardar</button>
+          <button type="submit" [disabled]="!isValid()" (click)="send()" class="btn btn-primary">Guardar</button>
         </div>
       </div>
     </div>
