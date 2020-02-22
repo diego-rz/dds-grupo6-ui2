@@ -8,8 +8,12 @@
     </label>
   </div>
   <div class="input-group-append">
-    <button type="button" class="input-group-text btn btn-outline-danger" id="inputGroupFileAddon02"
+    <button type="button" class="input-group-text btn btn-outline-danger rounded-right" id="inputGroupFileAddon02"
+      style="height: 39px;"
       (click)="clearFilesQueue()"
-      [disabled]="!uploader.getNotUploadedItems().length">Cancelar</button>
+      [disabled]="!uploader.getNotUploadedItems().length">
+      Cancelar
+    </button>
   </div>
+  <div *ngIf="showImageMessage" class="alert alert-danger">Sólo se permiten imágenes con formato 'jpg'</div>
 </div>

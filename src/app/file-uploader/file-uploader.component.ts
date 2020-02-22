@@ -15,6 +15,7 @@ export class FileUploaderComponent implements OnInit {
   public uploader: FileUploader;
   fileUploaded: FileItem;
   loading = false;
+  showImageMessage = false;
 
   constructor(
     private rest: RestService,
@@ -28,10 +29,14 @@ export class FileUploaderComponent implements OnInit {
   ngOnInit() {
 
     this.uploader.onAfterAddingFile = (file) => {
+      if (!file._file.name.endsWith('.jpg')) {
+        this.clearFilesQueue();
+        this.showImageMessage = true;
+        setTimeout(() => this.showImageMessage = false, 2000);
+        return;
+      }
       file.withCredentials = false;
       this.fileUploaded = file;
-      console.log(file);
-      console.log(this.uploader.getNotUploadedItems());
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.fileUploaded = undefined;

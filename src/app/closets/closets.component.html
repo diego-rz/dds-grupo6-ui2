@@ -25,7 +25,7 @@
           </thead>
           <tbody id="guardarropasList">
             <tr role="row" *ngFor="let closet of closets">
-              <td>{{closet.id}} {{closet.nombre}}</td>
+              <td>{{closet.nombre}}</td>
               <td class="d-none d-sm-table-cell">{{closet.propietario.nombre}} {{closet.propietario.apellido}}</td>
               <td>
                 <a (click)="viewItems(closet)" class="text"><button class="btn btn-primary">
