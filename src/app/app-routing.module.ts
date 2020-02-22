@@ -20,6 +20,7 @@ const routes = [
   {path: 'events/:id/items', component: ItemsComponent},
   {path: 'items', component: ItemsComponent},
   {path: 'items/add', component: AddItemComponent},
+  {path: 'closets/items/add', component: AddItemComponent},
   {path: 'closets', component: ClosetsComponent},
   {path: 'closets/items', component: ItemsComponent},
   {path: 'closets/add', component: AddClosetComponent},
